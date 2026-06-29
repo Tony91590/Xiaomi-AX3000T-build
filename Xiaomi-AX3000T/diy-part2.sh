@@ -21,6 +21,6 @@ sed -i 's/ImmortalWrt/OpenWrt/g' include/version.mk
 sed -i 's,https://immortalwrt.org/,https://openwrt.org/,g' include/version.mk
 sed -i 's,https://github.com/immortalwrt/immortalwrt/issues,https://bugs.openwrt.org/,g' include/version.mk
 sed -i 's,https://github.com/immortalwrt/immortalwrt/discussions,https://forum.openwrt.org/,g' include/version.mk
-sed -i '/\["FR"\]/s/{ 1, 2 }/{ 1, 1 }/' package/mtk/applications/mtwifi-cfg/files/mtwifi-cfg/mtwifi_defs.lua
+sed -i 's/Xiaomi Mi Router AX3000T (stock layout)/Xiaomi Mi Router AX3000T/g' target/linux/mediatek/files-5.4/arch/arm64/boot/dts/mediatek/mt7981-xiaomi-mi-router-ax3000t-stock.dts
 grep -n "OpenWrt" package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 grep -R '\["FR"\]' package/mtk/applications/mtwifi-cfg/files/mtwifi-cfg/mtwifi_defs.lua
