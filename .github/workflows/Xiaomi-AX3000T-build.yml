@@ -21,9 +21,9 @@ env:
   REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x
   REPO_BRANCH: openwrt-21.02
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: xiaomi-AX3000T/.config
-  DIY_P1_SH: hanwckf/EDUP-AX3000/diy-part1.sh
-  DIY_P2_SH: hanwckf/EDUP-AX3000/diy-part2.sh
+  CONFIG_FILE: Xiaomi-AX3000T/.config
+  DIY_P1_SH: Xiaomi-AX3000T/diy-part1.sh
+  DIY_P2_SH: Xiaomi-AX3000T/diy-part2.sh
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   UPLOAD_PACKAGES: true
@@ -131,7 +131,7 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "release_tag=$(date +"%Y.%m.%d-%H%M")-EDUP-AX3000-hanwckf">> $GITHUB_OUTPUT
+        echo "release_tag=$(date +"%Y.%m.%d-%H%M")-Xiaomi-AX3000T">> $GITHUB_OUTPUT
         touch release.txt
         echo "The default IP address is 192.168.31.1" >> release.txt
         echo "📥 Firmware download" >> release.txt
