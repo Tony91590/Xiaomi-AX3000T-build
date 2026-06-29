@@ -9,7 +9,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 ###############Name##############
-name: EDUP-AX3000-build-hanwckf
+name: EDUP-AX3000-build
 
 on:
   repository_dispatch:
