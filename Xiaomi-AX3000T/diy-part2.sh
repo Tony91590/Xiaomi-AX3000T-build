@@ -13,7 +13,7 @@ sed -i 's/ImmortalWrt-2.4G/OpenWrt-2.4G/g' package/mtk/applications/mtwifi-cfg/f
 sed -i 's/ImmortalWrt-5G/OpenWrt-5G/g' package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 sed -i 's/ImmortalWrt-6G/OpenWrt-6G/g' package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 sed -i 's/pool.ntp.org/3.openwrt.pool.ntp.org/g' package/base-files/files/bin/config_generate
-sed -i 's/time1.apple.com/0.openwrt.pool.ntp.org/g' package/base-files/files/bin/config_generate
+sed -i 's/time.apple.com/0.openwrt.pool.ntp.org/g' package/base-files/files/bin/config_generate
 sed -i 's/time1.google.com/1.openwrt.pool.ntp.org/g' package/base-files/files/bin/config_generate
 sed -i 's/time.cloudflare.com/2.openwrt.pool.ntp.org/g' package/base-files/files/bin/config_generate
 sed -i 's/default-settings-chn/default-settings/g' include/target.mk
