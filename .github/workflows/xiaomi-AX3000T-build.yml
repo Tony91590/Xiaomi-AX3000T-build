@@ -9,7 +9,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 ###############Name##############
-name: Xiaomi-AX3000-build
+name: xiaomi-AX3000T-build
 
 on:
   repository_dispatch:
