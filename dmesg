@@ -1,0 +1,1 @@
+dmesg | grep -iEo "( an8855 | mt7531ae |: .{1,} spi nand)" | sed -r "s/: //; s/(^ | $)//g"
