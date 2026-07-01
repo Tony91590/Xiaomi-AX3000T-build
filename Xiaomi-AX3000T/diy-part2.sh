@@ -6,6 +6,8 @@
 # See /LICENSE for more information.
 # 
 # Custom for Xiaomi AX3000T
+cp $GITHUB_WORKSPACE/hanwckf/EDUP-AX3000/patch/7661-022-fix-rrm-snprintf-error.patch package/mtk/drivers/mt_wifi/patches/
+cp $GITHUB_WORKSPACE/hanwckf/EDUP-AX3000/patch/7661-022-fix-rrm-snprintf-error.patch package/mtk/drivers/mt_wifi/patches/
 sed -i 's/192.168.1.1/192.168.31.1/g' package/base-files/files/bin/config_generate
 sed -i '/\["FR"\]/s/{ 1, 2 }/{ 1, 1 }/' package/mtk/applications/mtwifi-cfg/files/mtwifi-cfg/mtwifi_defs.lua
 sed -i 's/ImmortalWrt/OpenWrt/g' package/base-files/files/bin/config_generate
