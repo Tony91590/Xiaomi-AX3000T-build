@@ -19,7 +19,7 @@ on:
 
 env:
   REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x
-  REPO_BRANCH: openwrt-21.02
+  REPO_BRANCH: openwrt-24.10-6.6
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: Xiaomi-AX3000T/.config
   DIY_P1_SH: Xiaomi-AX3000T/diy-part1.sh
