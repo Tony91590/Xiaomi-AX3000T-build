@@ -71,13 +71,7 @@ jobs:
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
-        if [ -n "$REPO_COMMIT" ]; then
-        echo "Checkout commit $REPO_COMMIT"
-        git checkout "$REPO_COMMIT"
-        else     
-        echo "Using branch $REPO_BRANCH"
-        fi
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        $GITHUB_WORKSPACE/$DIY_P1_SH
         
     - name: Update & install feeds
       run: |
