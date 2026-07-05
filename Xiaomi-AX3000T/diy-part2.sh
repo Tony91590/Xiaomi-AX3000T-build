@@ -7,7 +7,107 @@
 # 
 # Custom for Xiaomi AX3000T
 
+IMM_LUCI_BRANCH="openwrt-25.12"
+        STATUS_FILE="feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js"
 
+        curl -fsSL "https://raw.githubusercontent.com/immortalwrt/luci/${IMM_LUCI_BRANCH}/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js" \
+          -o "$STATUS_FILE" || \
+        curl -fsSL "https://raw.githubusercontent.com/immortalwrt/luci/master/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js" \
+          -o "$STATUS_FILE"
+
+        # 3.给官方 luci RPC 后端补 ImmortalWrt 的 CPU 信息方法
+        python3 <<'PY'
+        from pathlib import Path
+
+        p = Path("feeds/luci/modules/luci-base/root/usr/share/rpcd/ucode/luci")
+        s = p.read_text()
+
+        if "getCPUInfo:" not in s:
+            block = r"""
+        getCPUBench: {
+            call: function() {
+                return { cpubench: readfile('/etc/bench.log') || '' };
+            }
+        },
+
+        getCPUInfo: {
+            call: function() {
+                if (!access('/sbin/cpuinfo'))
+                    return {};
+
+                const fd = popen('/sbin/cpuinfo');
+
+                if (fd) {
+                    let cpuinfo = fd.read('all');
+
+                    if (!cpuinfo)
+                        cpuinfo = '?';
+
+                    fd.close();
+
+                    return { cpuinfo: cpuinfo };
+                }
+                else {
+                    return { cpuinfo: error() };
+                }
+            }
+        },
+
+        getCPUUsage: {
+            call: function() {
+                const fd = popen('top -n1 | awk \'/^CPU/ {printf("%d%%", 100 - $8)}\'');
+
+                if (fd) {
+                    let cpuusage = fd.read('all');
+
+                    if (!cpuusage)
+                        cpuusage = '?';
+
+                    fd.close();
+
+                    return { cpuusage: cpuusage };
+                }
+                else {
+                    return { cpuusage: error() };
+                }
+            }
+        },
+
+        getTempInfo: {
+            call: function() {
+                if (!access('/sbin/tempinfo'))
+                    return {};
+
+                const fd = popen('/sbin/tempinfo');
+
+                if (fd) {
+                    let tempinfo = fd.read('all');
+
+                    if (!tempinfo)
+                        tempinfo = '?';
+
+                    fd.close();
+
+                    return { tempinfo: tempinfo };
+                }
+                else {
+                    return { tempinfo: error() };
+                }
+            }
+        }
+        """
+
+            marker = "\n};\n\nreturn { luci: methods };"
+
+            if marker not in s:
+                marker = "\n}; return { luci: methods };"
+
+            if marker not in s:
+                raise SystemExit("没有找到 luci RPC 文件结尾标记，未修改。")
+
+            s = s.replace(marker, ",\n" + block.strip() + marker, 1)
+            p.write_text(s)
+        PY
 
 git clone -b openwrt-25.12 https://github.com/immortalwrt/immortalwrt.git tmp_imm
 
