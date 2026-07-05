@@ -40,6 +40,3 @@ exit 0
 EOF
 
 chmod +x files/etc/uci-defaults/99-default-settings
-
-cat target/linux/mediatek/filogic/target.mk
-cat package/kernel/mt76/Makefile
