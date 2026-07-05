@@ -7,6 +7,13 @@
 # 
 # Custom for Xiaomi AX3000T
 
+
+
+git clone -b openwrt-25.12 https://github.com/immortalwrt/immortalwrt.git tmp_imm
+
+cp -r tmp_imm/package/emortal package/
+rm -rf tmp_imm
+
 sed -i '/AUTOLOAD:=$(call AutoProbe,mt7915e)/a \  MODPARAMS.mt7915e:=wed_enable=Y' package/kernel/mt76/Makefile
 
 # ===== Argon Theme =====
