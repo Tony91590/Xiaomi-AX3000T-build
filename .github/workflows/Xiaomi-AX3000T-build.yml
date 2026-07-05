@@ -19,7 +19,7 @@ on:
 
 env:
   REPO_URL: https://github.com/Tony91590/openwrt
-  REPO_BRANCH: AX3000T
+  REPO_BRANCH: AX3000T2
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: Xiaomi-AX3000T/.config
   DIY_P1_SH: Xiaomi-AX3000T/diy-part1.sh
