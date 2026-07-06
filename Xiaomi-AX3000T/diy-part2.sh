@@ -121,24 +121,22 @@ else
 fi
 EOF
 
-        chmod +x files/sbin/tempinfo
+chmod +x files/sbin/tempinfo
 
-        mkdir -p files/usr/share/rpcd/acl.d
+mkdir -p files/usr/share/rpcd/acl.d
 
-        cat > files/usr/share/rpcd/acl.d/luci-mod-status-autocore.json <<'EOF'
-        {
-          "luci-mod-status-autocore": {
-            "description": "Grant access to autocore status methods",
-            "read": {
-              "ubus": {
-                "luci": [
-                  "getTempInfo"
-                ]
-              }
-            }
-          }
-        }
-        EOF
+cat > files/usr/share/rpcd/acl.d/luci-mod-status-autocore.json <<'EOF'
+{
+	"luci-mod-status-autocore": {
+		"description": "Grant access to autocore",
+		"read": {
+			"ubus": {
+				"luci": [ "getTempInfo" ]
+			}
+		}
+	}
+}
+EOF
 
 echo "[3/5] Adding ImmortalWrt packages..."
 
