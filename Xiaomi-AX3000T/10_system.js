@@ -30,7 +30,7 @@ var callSystemBoard = rpc.declare({
  	method: 'getTempInfo'
  });
 
- return baseclass.extend({
+return baseclass.extend({
 	title: _('System'),
 
 	load: function() {
