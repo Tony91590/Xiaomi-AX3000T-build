@@ -78,36 +78,48 @@ else:
 PY
         mkdir -p files/sbin
 
-        cat > files/sbin/tempinfo <<'EOF'
-        #!/bin/sh
+cat > files/sbin/tempinfo <<'EOF'
+#!/bin/sh
 
-        for input in /sys/class/hwmon/hwmon*/temp*_input; do
-            [ -e "$input" ] || continue
+. /etc/openwrt_release
 
-            name="$(cat "$(dirname "$input")/name" 2>/dev/null)"
-            label="$(cat "${input%_input}_label" 2>/dev/null)"
+IEEE_PATH="/sys/class/ieee80211"
+THERMAL_PATH="/sys/class/thermal"
 
-            echo "$name $label" | grep -qiE 'coretemp.*Package|Package id|x86_pkg_temp|cpu' || continue
+case "$DISTRIB_TARGET" in
+ipq40xx/*|ipq806x/*)
+	wifi_temp="$(awk '{printf("%.1f°C ", $0 / 1000)}' "$IEEE_PATH"/phy*/device/hwmon/hwmon*/temp1_input 2>"/dev/null" | awk '$1=$1')"
+	;;
+mediatek/mt7622)
+	wifi_temp="$(awk '{printf("%.1f°C ", $0 / 1000)}' "$IEEE_PATH"/wl*/hwmon*/temp1_input 2>"/dev/null" | awk '$1=$1')"
+	;;
+*)
+	wifi_temp="$(awk '{printf("%.1f°C ", $0 / 1000)}' "$IEEE_PATH"/phy*/hwmon*/temp1_input 2>"/dev/null" | awk '$1=$1')"
+	;;
+esac
 
-            val="$(cat "$input" 2>/dev/null)"
-            [ -n "$val" ] && awk -v v="$val" 'BEGIN {printf "%.1f°C\n", v / 1000}'
-            exit 0
-        done
+case "$DISTRIB_TARGET" in
+ipq40xx/*)
+	if [ -e "$IEEE_PATH/phy0/hwmon0/temp1_input" ]; then
+		mt76_temp="$(awk -F ': ' '{print $2}' "$IEEE_PATH/phy0/hwmon0/temp1_input" 2>"/dev/null")°C"
+	fi
+	[ -z "$mt76_temp" ] || wifi_temp="${wifi_temp:+$wifi_temp }$mt76_temp"
+	;;
+*)
+	cpu_temp="$(awk '{printf("%.1f°C", $0 / 1000)}' "$THERMAL_PATH/thermal_zone0/temp" 2>"/dev/null")"
+	;;
+esac
 
-        for input in /sys/class/hwmon/hwmon*/temp*_input; do
-            [ -e "$input" ] || continue
-            val="$(cat "$input" 2>/dev/null)"
-            [ -n "$val" ] && awk -v v="$val" 'BEGIN {printf "%.1f°C\n", v / 1000}'
-            exit 0
-        done
-
-        for input in /sys/class/thermal/thermal_zone*/temp; do
-            [ -e "$input" ] || continue
-            val="$(cat "$input" 2>/dev/null)"
-            [ -n "$val" ] && awk -v v="$val" 'BEGIN {printf "%.1f°C\n", v / 1000}'
-            exit 0
-        done
-        EOF
+if [ -n "$cpu_temp" ] && [ -z "$wifi_temp" ]; then
+	echo -n "CPU: $cpu_temp"
+elif [ -z "$cpu_temp" ] && [ -n "$wifi_temp" ]; then
+	echo -n "WiFi: $wifi_temp"
+elif [ -n "$cpu_temp" ] && [ -n "$wifi_temp" ]; then
+	echo -n "CPU: $cpu_temp, WiFi: $wifi_temp"
+else
+	echo -n "No temperature info"
+fi
+EOF
 
         chmod +x files/sbin/tempinfo
 
