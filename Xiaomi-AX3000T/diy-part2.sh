@@ -20,7 +20,7 @@ echo "[1/5] Downloading LuCI system status patch..."
 
 mkdir -p "$(dirname "$STATUS_FILE")"
 
-curl -fsSL "https://raw.githubusercontent.com/immortalwrt/luci/master/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js" \
+curl -fsSL "https://raw.githubusercontent.com/Tony91590/Xiaomi-AX3000T-build/refs/heads/Proto-beta/Xiaomi-AX3000T/10_system.js" \
   -o "$STATUS_FILE"
 
 
