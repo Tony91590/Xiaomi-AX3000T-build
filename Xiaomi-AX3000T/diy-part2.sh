@@ -40,47 +40,11 @@ if not file.exists():
 s = file.read_text()
 
 # protection anti double patch
-if "getCPUInfo:" in s:
+if "getTempInfo:" in s:
     print("Patch already applied, skipping.")
     exit(0)
 
 block = r"""
-        getCPUBench: {
-            call: function() {
-                return { cpubench: readfile('/etc/bench.log') || '' };
-            }
-        },
-
-        getCPUInfo: {
-            call: function() {
-                if (!access('/sbin/cpuinfo'))
-                    return {};
-
-                const fd = popen('/sbin/cpuinfo');
-                if (!fd)
-                    return { cpuinfo: error() };
-
-                let cpuinfo = fd.read('all') || '?';
-                fd.close();
-
-                return { cpuinfo: cpuinfo };
-            }
-        },
-
-        getCPUUsage: {
-            call: function() {
-                const fd = popen("awk '/^cpu / {u=$2+$4; t=$2+$4+$5; if (t>0) printf(\"%.0f%%\", u*100/t);}' /proc/stat");
-
-                if (!fd)
-                    return { cpuusage: error() };
-
-                let cpuusage = fd.read('all') || '?';
-                fd.close();
-
-                return { cpuusage: cpuusage };
-            }
-        },
-
         getTempInfo: {
             call: function() {
                 if (!access('/sbin/tempinfo'))
