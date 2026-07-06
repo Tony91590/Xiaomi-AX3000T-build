@@ -14,15 +14,12 @@
 
 set -e
 
-IMM_LUCI_BRANCH="openwrt-25.12"
 STATUS_FILE="feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js"
 
 echo "[1/5] Downloading LuCI system status patch..."
 
 mkdir -p "$(dirname "$STATUS_FILE")"
 
-curl -fsSL "https://raw.githubusercontent.com/immortalwrt/luci/${IMM_LUCI_BRANCH}/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js" \
-  -o "$STATUS_FILE" || \
 curl -fsSL "https://raw.githubusercontent.com/immortalwrt/luci/master/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js" \
   -o "$STATUS_FILE"
 
