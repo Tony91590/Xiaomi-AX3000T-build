@@ -76,7 +76,11 @@ for marker in marker_candidates:
 else:
     raise SystemExit("LuCI RPC end marker not found, aborting.")
 PY
-        mkdir -p files/sbin
+
+
+echo "[3/5] Adding ImmortalWrt packages..."
+
+mkdir -p files/sbin
 
 cat > files/sbin/tempinfo <<'EOF'
 #!/bin/sh
@@ -137,12 +141,6 @@ cat > files/usr/share/rpcd/acl.d/luci-mod-status-autocore.json <<'EOF'
 	}
 }
 EOF
-
-echo "[3/5] Adding ImmortalWrt packages..."
-
-git clone -b openwrt-25.12 https://github.com/immortalwrt/immortalwrt.git tmp_imm
-cp -r tmp_imm/package/emortal package/
-rm -rf tmp_imm
 
 
 echo "[4/5] Kernel tweak (mt76 / AX3000T)..."
