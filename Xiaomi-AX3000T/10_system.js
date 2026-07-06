@@ -20,12 +20,17 @@ var callSystemBoard = rpc.declare({
 	method: 'board'
 });
 
-var callSystemInfo = rpc.declare({
-	object: 'system',
-	method: 'info'
-});
+ var callSystemInfo = rpc.declare({
+ 	object: 'system',
+ 	method: 'info'
+ });
 
-return baseclass.extend({
+ var callTempInfo = rpc.declare({
+ 	object: 'luci',
+ 	method: 'getTempInfo'
+ });
+
+ return baseclass.extend({
 	title: _('System'),
 
 	load: function() {
