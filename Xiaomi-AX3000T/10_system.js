@@ -77,10 +77,11 @@ return baseclass.extend({
 			_('Firmware Version'), (L.isObject(boardinfo.release) ? boardinfo.release.description + ' / ' : '') + (luciversion || ''),
 			_('Kernel Version'),   boardinfo.kernel,
 			_('Local Time'),       datestr,
-			_('Uptime'),           systeminfo.uptime ? '%t'.format(systeminfo.uptime) : null, 			_('Load Average'),     Array.isArray(systeminfo.load) ? '%.2f, %.2f, %.2f'.format(
- 				systeminfo.load[0] / 65535.0,
- 				systeminfo.load[1] / 65535.0,
- 				systeminfo.load[2] / 65535.0
+			_('Uptime'),           systeminfo.uptime ? '%t'.format(systeminfo.uptime) : null,
+			_('Load Average'),     Array.isArray(systeminfo.load) ? '%.2f, %.2f, %.2f'.format(
+				systeminfo.load[0] / 65535.0,
+				systeminfo.load[1] / 65535.0,
+				systeminfo.load[2] / 65535.0
 			) : null
  		];
 		
