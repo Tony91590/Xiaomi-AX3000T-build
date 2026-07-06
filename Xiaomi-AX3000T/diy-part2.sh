@@ -76,7 +76,57 @@ for marker in marker_candidates:
 else:
     raise SystemExit("LuCI RPC end marker not found, aborting.")
 PY
+        mkdir -p files/sbin
 
+        cat > files/sbin/tempinfo <<'EOF'
+        #!/bin/sh
+
+        for input in /sys/class/hwmon/hwmon*/temp*_input; do
+            [ -e "$input" ] || continue
+
+            name="$(cat "$(dirname "$input")/name" 2>/dev/null)"
+            label="$(cat "${input%_input}_label" 2>/dev/null)"
+
+            echo "$name $label" | grep -qiE 'coretemp.*Package|Package id|x86_pkg_temp|cpu' || continue
+
+            val="$(cat "$input" 2>/dev/null)"
+            [ -n "$val" ] && awk -v v="$val" 'BEGIN {printf "%.1f°C\n", v / 1000}'
+            exit 0
+        done
+
+        for input in /sys/class/hwmon/hwmon*/temp*_input; do
+            [ -e "$input" ] || continue
+            val="$(cat "$input" 2>/dev/null)"
+            [ -n "$val" ] && awk -v v="$val" 'BEGIN {printf "%.1f°C\n", v / 1000}'
+            exit 0
+        done
+
+        for input in /sys/class/thermal/thermal_zone*/temp; do
+            [ -e "$input" ] || continue
+            val="$(cat "$input" 2>/dev/null)"
+            [ -n "$val" ] && awk -v v="$val" 'BEGIN {printf "%.1f°C\n", v / 1000}'
+            exit 0
+        done
+        EOF
+
+        chmod +x files/sbin/tempinfo
+
+        mkdir -p files/usr/share/rpcd/acl.d
+
+        cat > files/usr/share/rpcd/acl.d/luci-mod-status-autocore.json <<'EOF'
+        {
+          "luci-mod-status-autocore": {
+            "description": "Grant access to autocore status methods",
+            "read": {
+              "ubus": {
+                "luci": [
+                  "getTempInfo"
+                ]
+              }
+            }
+          }
+        }
+        EOF
 
 echo "[3/5] Adding ImmortalWrt packages..."
 
