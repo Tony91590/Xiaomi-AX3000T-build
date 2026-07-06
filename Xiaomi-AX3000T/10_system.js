@@ -83,6 +83,7 @@ return baseclass.extend({
  				systeminfo.load[2] / 65535.0
 			) : null
  		];
+		
 		if (tempinfo.tempinfo) {
 			fields.splice(6, 0, _('Temperature'));
 			fields.splice(7, 0, tempinfo.tempinfo);
