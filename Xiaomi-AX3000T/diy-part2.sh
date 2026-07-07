@@ -53,7 +53,7 @@ mkdir -p target/linux/mediatek/filogic/base-files/etc/rc.d
 ln -sf ../init.d/bootcount target/linux/mediatek/filogic/base-files/etc/rc.d/S99bootcount
 chmod 0755 target/linux/mediatek/filogic/base-files/etc/init.d/bootcount
 
-cat > target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh <<'BOOTCOUNT_EOF'
+cat > target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh <<'PLATFORM_EOF'
 REQUIRE_IMAGE_METADATA=1
 RAMFS_COPY_BIN='fitblk fit_check_sign'
 
@@ -502,4 +502,4 @@ platform_pre_upgrade() {
 		;;
 	esac
 }
-BOOTCOUNT_EOF
+PLATFORM_EOF
