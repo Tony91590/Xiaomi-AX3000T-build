@@ -17,9 +17,19 @@
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 #echo 'src-git messense https://github.com/messense/aliyundrive-webdav' >>feeds.conf.default
+#
 cat > feeds.conf.default << 'EOF'
-src-git-full packages https://github.com/immortalwrt/packages.git^e09f3c7d1
-src-git-full luci https://github.com/immortalwrt/luci.git^5829eabba5
-src-git-full routing https://github.com/openwrt/routing.git^a9e4310
-src-git-full telephony https://github.com/openwrt/telephony.git^920fbc5
+src-git packages https://github.com/coolsnowwolf/packages
+src-git luci https://github.com/coolsnowwolf/luci
+#src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-23.05
+#src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-24.10
+#src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-25.12
+src-git routing https://github.com/coolsnowwolf/routing
+src-git telephony https://github.com/coolsnowwolf/telephony.git
+#src-git helloworld https://github.com/fw876/helloworld.git
+#src-git qmodem https://github.com/FUjr/modem_feeds.git
+#src-git video https://github.com/openwrt/video.git
+#src-git targets https://github.com/openwrt/targets.git
+#src-git oldpackages http://git.openwrt.org/packages.git
+#src-link custom /usr/src/openwrt/custom-feed
 EOF
