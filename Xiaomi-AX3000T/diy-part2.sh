@@ -7,6 +7,8 @@
 # 
 # Custom for Xiaomi AX3000T
 
+target/linux/mediatek/filogic/base-files/etc/init.d/bootcount
+
 #!/bin/sh /etc/rc.common
 # SPDX-License-Identifier: GPL-2.0-only
 
