@@ -8,6 +8,7 @@
 # Custom for Xiaomi AX3000T
 
 cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/mt7981b-xiaomi-ax3000t.dts target/linux/mediatek/dts/
+cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/mt7981b-xiaomi_mi-router.dtsi target/linux/mediatek/dts/
 
 cat > target/linux/mediatek/filogic/base-files/etc/init.d/bootcount << EOF
 #!/bin/sh /etc/rc.common
