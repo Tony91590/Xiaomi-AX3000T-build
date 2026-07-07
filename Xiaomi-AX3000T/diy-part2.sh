@@ -88,15 +88,7 @@ THERMAL_PATH="/sys/class/thermal"
 wifi_temp="$(awk '{printf("%.1f°C ", $0 / 1000)}' "$IEEE_PATH"/phy*/hwmon*/temp1_input 2>"/dev/null" | awk '$1=$1')"
 cpu_temp="$(awk '{printf("%.1f°C", $0 / 1000)}' "$THERMAL_PATH/thermal_zone0/temp" 2>"/dev/null")"
 
-if [ -n "$cpu_temp" ] && [ -z "$wifi_temp" ]; then
-	echo -n "CPU: $cpu_temp"
-elif [ -z "$cpu_temp" ] && [ -n "$wifi_temp" ]; then
-	echo -n "WiFi: $wifi_temp"
-elif [ -n "$cpu_temp" ] && [ -n "$wifi_temp" ]; then
-	echo -n "CPU: $cpu_temp, WiFi: $wifi_temp"
-else
-	echo -n "No temperature info"
-fi
+echo -n "CPU: $cpu_temp, WiFi: $wifi_temp"
 EOF
 
 chmod +x files/sbin/tempinfo
