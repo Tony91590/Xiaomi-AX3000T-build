@@ -12,6 +12,8 @@ cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/mt7981b-xiaomi-ax3000t.dts target/linux/medi
 
 cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/mt7981b-xiaomi_mi-router.dtsi target/linux/mediatek/dts/ \
     && echo "✅ mt7981b-xiaomi_mi-router.dtsi copié"
+
+mkdir -p target/linux/mediatek/filogic/base-files/etc/init.d
 	
 cat > target/linux/mediatek/filogic/base-files/etc/init.d/bootcount << EOF
 #!/bin/sh /etc/rc.common
