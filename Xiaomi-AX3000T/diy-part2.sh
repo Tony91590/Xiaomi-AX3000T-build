@@ -42,3 +42,4 @@ EOF
 
 mkdir -p target/linux/mediatek/filogic/base-files/etc/rc.d
 ln -sf ../init.d/bootcount target/linux/mediatek/filogic/base-files/etc/rc.d/S99bootcount
+chmod 0755 target/linux/mediatek/filogic/base-files/etc/init.d/bootcount
