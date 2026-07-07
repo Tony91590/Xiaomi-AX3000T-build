@@ -20,8 +20,8 @@
 #
 cat > feeds.conf.default << 'EOF'
 src-git packages https://github.com/coolsnowwolf/packages
-src-git luci https://github.com/coolsnowwolf/luci
-#src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-23.05
+#src-git luci https://github.com/coolsnowwolf/luci
+src-git luci https://github.com/coolsnowwolf/luci.git;master
 #src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-24.10
 #src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-25.12
 src-git routing https://github.com/coolsnowwolf/routing
