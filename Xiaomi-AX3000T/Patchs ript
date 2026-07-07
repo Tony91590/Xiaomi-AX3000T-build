@@ -45,10 +45,19 @@ xiaomi_initial_setup()
 
 
 platform_do_upgrade() {
-	CI_KERN_UBIPART=ubi_kernel
-	CI_ROOT_UBIPART=ubi
+	local board=$(board_name)
 
-	nand_do_upgrade "$1"
+	case "$board" in
+	xiaomi,mi-router-ax3000t)
+		CI_KERN_UBIPART=ubi_kernel
+		CI_ROOT_UBIPART=ubi
+		nand_do_upgrade "$1"
+		;;
+	*)
+		echo "Unsupported board: $board"
+		return 1
+		;;
+	esac
 }
 
 
@@ -57,11 +66,20 @@ PART_NAME=firmware
 
 platform_check_image() {
 	local board=$(board_name)
+	local magic="$(get_magic_long "$1")"
 
 	[ "$#" -gt 1 ] && return 1
 
-	nand_do_platform_check "$board" "$1"
-	return $?
+	case "$board" in
+	xiaomi,mi-router-ax3000t)
+		nand_do_platform_check "$board" "$1"
+		return $?
+		;;
+	*)
+		echo "Unsupported board: $board"
+		return 1
+		;;
+	esac
 }
 
 
@@ -71,7 +89,9 @@ platform_copy_config() {
 
 
 platform_pre_upgrade() {
-	case "$(board_name)" in
+	local board=$(board_name)
+
+	case "$board" in
 	xiaomi,mi-router-ax3000t)
 		xiaomi_initial_setup
 		;;
