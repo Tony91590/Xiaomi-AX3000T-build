@@ -288,25 +288,23 @@
 
 			partition@0 {
 				label = "BL2";
-				reg = <0x0000000 0x0100000>;
+				reg = <0x00 0x100000>;
 				read-only;
 			};
 
 			partition@100000 {
 				label = "Nvram";
-				reg = <0x0100000 0x0040000>;
-				read-only;
+				reg = <0x100000 0x40000>;
 			};
 
 			partition@140000 {
 				label = "Bdata";
-				reg = <0x0140000 0x0040000>;
-				read-only;
+				reg = <0x140000 0x40000>;
 			};
 
 			factory: partition@180000 {
 				label = "Factory";
-				reg = <0x0180000 0x0200000>;
+				reg = <0x180000 0x200000>;
 				read-only;
 
 				nvmem-layout {
