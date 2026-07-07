@@ -1,6 +1,7 @@
 REQUIRE_IMAGE_METADATA=1
 RAMFS_COPY_BIN='fitblk fit_check_sign'
 
+
 xiaomi_initial_setup()
 {
 	# initialize UBI and setup uboot-env if it's running on initramfs
@@ -43,59 +44,33 @@ xiaomi_initial_setup()
 }
 
 
-platform_do_upgrade()
-{
-	local board=$(board_name)
+platform_do_upgrade() {
+	CI_KERN_UBIPART=ubi_kernel
+	CI_ROOT_UBIPART=ubi
 
-	case "$board" in
-	xiaomi,mi-router-ax3000t)
-		CI_KERN_UBIPART=ubi_kernel
-		CI_ROOT_UBIPART=ubi
-		nand_do_upgrade "$1"
-		;;
-
-	*)
-		echo "Unsupported board: $board"
-		return 1
-		;;
-	esac
+	nand_do_upgrade "$1"
 }
 
 
 PART_NAME=firmware
 
 
-platform_check_image()
-{
+platform_check_image() {
 	local board=$(board_name)
 
 	[ "$#" -gt 1 ] && return 1
 
-	case "$board" in
-	xiaomi,mi-router-ax3000t)
-		nand_do_platform_check "$board" "$1"
-		return $?
-		;;
-
-	*)
-		echo "Unsupported board: $board"
-		return 1
-		;;
-	esac
+	nand_do_platform_check "$board" "$1"
+	return $?
 }
 
 
-platform_copy_config()
-{
-	case "$(board_name)" in
-	xiaomi,mi-router-ax3000t)
-		;;
-	esac
+platform_copy_config() {
+	return 0
 }
 
 
-platform_pre_upgrade()
-{
+platform_pre_upgrade() {
 	case "$(board_name)" in
 	xiaomi,mi-router-ax3000t)
 		xiaomi_initial_setup
