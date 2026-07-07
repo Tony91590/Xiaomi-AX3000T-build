@@ -7,6 +7,8 @@
 # 
 # Custom for Xiaomi AX3000T
 
+cp $GITHUB_WORKSPACE/lean/Redmi-AX6000/data/mt7986a-xiaomi-redmi-router-ax6000.dts target/linux/mediatek/dts/
+
 cat > target/linux/mediatek/filogic/base-files/etc/init.d/bootcount << EOF
 #!/bin/sh /etc/rc.common
 # SPDX-License-Identifier: GPL-2.0-only
