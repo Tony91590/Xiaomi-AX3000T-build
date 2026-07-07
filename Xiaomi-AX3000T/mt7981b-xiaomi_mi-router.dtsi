@@ -280,6 +280,7 @@
 		mediatek,nmbm;
 		mediatek,bmt-max-ratio = <1>;
 		mediatek,bmt-max-reserved-blocks = <64>;
+	    mediatek,bmt-mtd-overridden-oobsize = <64>;
 
 		partitions: partitions {
 			compatible = "fixed-partitions";
