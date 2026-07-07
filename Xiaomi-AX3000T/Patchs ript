@@ -7,23 +7,23 @@ xiaomi_initial_setup()
 	# initialize UBI and setup uboot-env if it's running on initramfs
 	[ "$(rootfs_type)" = "tmpfs" ] || return 0
 
-	local mtdnum="$( find_mtd_index ubi )"
-	if [ ! "$mtdnum" ]; then
+	local mtdnum="$(find_mtd_index ubi)"
+	if [ -z "$mtdnum" ]; then
 		echo "unable to find mtd partition ubi"
 		return 1
 	fi
 
-	local kern_mtdnum="$( find_mtd_index ubi_kernel )"
-	if [ ! "$kern_mtdnum" ]; then
+	local kern_mtdnum="$(find_mtd_index ubi_kernel)"
+	if [ -z "$kern_mtdnum" ]; then
 		echo "unable to find mtd partition ubi_kernel"
 		return 1
 	fi
 
 	ubidetach -m "$mtdnum"
-	ubiformat /dev/mtd$mtdnum -y
+	ubiformat /dev/mtd"$mtdnum" -y
 
 	ubidetach -m "$kern_mtdnum"
-	ubiformat /dev/mtd$kern_mtdnum -y
+	ubiformat /dev/mtd"$kern_mtdnum" -y
 
 	if ! fw_printenv -n flag_try_sys2_failed &>/dev/null; then
 		echo "failed to access u-boot-env. skip env setup."
@@ -66,7 +66,6 @@ PART_NAME=firmware
 
 platform_check_image() {
 	local board=$(board_name)
-	local magic="$(get_magic_long "$1")"
 
 	[ "$#" -gt 1 ] && return 1
 
