@@ -15,7 +15,7 @@ cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/mt7981b-xiaomi_mi-router.dtsi target/linux/m
 
 mkdir -p target/linux/mediatek/filogic/base-files/etc/init.d
 	
-cat > target/linux/mediatek/filogic/base-files/etc/init.d/bootcount << EOF
+cat > target/linux/mediatek/filogic/base-files/etc/init.d/bootcount << EOF_1
 #!/bin/sh /etc/rc.common
 # SPDX-License-Identifier: GPL-2.0-only
 
@@ -46,13 +46,13 @@ boot() {
 		;;
 	esac
 }
-EOF
+EOF_1
 
 mkdir -p target/linux/mediatek/filogic/base-files/etc/rc.d
 ln -sf ../init.d/bootcount target/linux/mediatek/filogic/base-files/etc/rc.d/S99bootcount
 chmod 0755 target/linux/mediatek/filogic/base-files/etc/init.d/bootcount
 
-cat > target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh << EOF
+cat > target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh << EOF_2
 REQUIRE_IMAGE_METADATA=1
 RAMFS_COPY_BIN='fitblk fit_check_sign'
 
@@ -501,4 +501,4 @@ platform_pre_upgrade() {
 		;;
 	esac
 }
-EOF
+EOF_2
