@@ -5,7 +5,7 @@
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
 # 
-# Custom for Xiaomi AX3000T
+# Custom for Xiaomi AX3000T stock
 
 cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/mt7981b-xiaomi-ax3000t.dts target/linux/mediatek/dts/ \
     && echo "✅ mt7981b-xiaomi-ax3000t.dts copié"
