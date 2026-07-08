@@ -8,7 +8,7 @@
 # Custom for Xiaomi AX3000T stock
 
 # test
-cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/mt7981b-xiaomi_mi-router.dtsi feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js\
+cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/wireless.js feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/ \
     && echo "✅ testest"
 # test
 
