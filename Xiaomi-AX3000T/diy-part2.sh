@@ -477,24 +477,7 @@ platform_pre_upgrade() {
 	local board=$(board_name)
 
 	case "$board" in
-	asus,rt-ax52|\
-	asus,rt-ax57m|\
-	asus,rt-ax59u|\
-	asus,tuf-ax4200|\
-	asus,tuf-ax4200q|\
-	asus,tuf-ax6000|\
-	asus,zenwifi-bt8)
-		asus_initial_setup
-		;;
-	buffalo,wsr-6000ax8)
-		buffalo_initial_setup
-		;;
-	jiorouter,ax6000-jidu6101)
-		jiorouter_initial_setup
-		;;
-	xiaomi,mi-router-ax3000t|\
-	xiaomi,mi-router-wr30u-stock|\
-	xiaomi,redmi-router-ax6000-stock)
+	xiaomi,mi-router-ax3000t)
 		xiaomi_initial_setup
 		;;
 	esac
