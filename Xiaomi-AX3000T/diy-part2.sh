@@ -432,45 +432,7 @@ platform_check_image() {
 }
 
 platform_copy_config() {
-	case "$(board_name)" in
-	bananapi,bpi-r3|\
-	bananapi,bpi-r3-mini|\
-	bananapi,bpi-r4|\
-	bananapi,bpi-r4-2g5|\
-	bananapi,bpi-r4-poe|\
-	bananapi,bpi-r4-lite|\
-	cmcc,rax3000m|\
-	gatonetworks,gdsp|\
-	mediatek,mt7988a-rfb)
-		if [ "$CI_METHOD" = "emmc" ]; then
-			emmc_copy_config
-		fi
-		;;
-	acer,predator-w6|\
-	acer,predator-w6d|\
-	acer,vero-w6m|\
-	airpi,ap3000m|\
-	arcadyan,mozart|\
-	glinet,gl-mt2500|\
-	glinet,gl-mt2500-airoha|\
-	glinet,gl-mt6000|\
-	glinet,gl-x3000|\
-	glinet,gl-xe3000|\
-	huasifei,wh3000|\
-	huasifei,wh3000-pro-emmc|\
-	jdcloud,re-cp-03|\
-	nradio,c8-668gl|\
-	smartrg,sdg-8612|\
-	smartrg,sdg-8614|\
-	smartrg,sdg-8622|\
-	smartrg,sdg-8632|\
-	smartrg,sdg-8733|\
-	smartrg,sdg-8733a|\
-	smartrg,sdg-8734|\
-	ubnt,unifi-6-plus)
-		emmc_copy_config
-		;;
-	esac
+	return 0	
 }
 
 platform_pre_upgrade() {
