@@ -132,10 +132,6 @@ platform_check_image() {
 	return 0
 }
 
-platform_copy_config() {
-	return 0	
-}
-
 platform_pre_upgrade() {
 	local board=$(board_name)
 
