@@ -54,50 +54,6 @@ cat > target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh <<'PLATFO
 REQUIRE_IMAGE_METADATA=1
 RAMFS_COPY_BIN='fitblk fit_check_sign'
 
-asus_initial_setup()
-{
-	# initialize UBI if it's running on initramfs
-	[ "$(rootfs_type)" = "tmpfs" ] || return 0
-
-	ubirmvol /dev/ubi0 -N rootfs
-	ubirmvol /dev/ubi0 -N rootfs_data
-	ubirmvol /dev/ubi0 -N jffs2
-	ubimkvol /dev/ubi0 -N jffs2 -s 0x3e000
-}
-
-buffalo_initial_setup()
-{
-	local mtdnum="$( find_mtd_index ubi )"
-	if [ ! "$mtdnum" ]; then
-		echo "unable to find mtd partition ubi"
-		return 1
-	fi
-
-	ubidetach -m "$mtdnum"
-	ubiformat /dev/mtd$mtdnum -y
-}
-
-jiorouter_initial_setup()
-{
-	[ "$(rootfs_type)" = "tmpfs" ] || return 0
-
-	local mtdnum="$( find_mtd_index ubi )"
-	if [ ! "$mtdnum" ]; then
-		echo "unable to find mtd partition ubi"
-		return 1
-	fi
-
-	ubidetach -m "$mtdnum" 2>/dev/null
-	ubiformat /dev/mtd$mtdnum -y
-	ubiattach -m "$mtdnum"
-	ubimkvol /dev/ubi0 -n 0 -N u-boot-env -s 0x80000
-
-	# Set boot arguments in freshly created U-Boot environment
-	fw_setenv bootcmd 'ubi read 46000000 kernel;fdt addr $(fdtcontroladdr);fdt rm /signature;bootm 0x46000000'
-	fw_setenv bootdelay 0
-	fw_setenv ipaddr ''
-}
-
 xiaomi_initial_setup()
 {
 	# initialize UBI and setup uboot-env if it's running on initramfs
@@ -138,12 +94,8 @@ xiaomi_initial_setup()
 
 	local board=$(board_name)
 	case "$board" in
-	xiaomi,mi-router-ax3000t|\
-	xiaomi,mi-router-wr30u-stock)
+	xiaomi,mi-router-ax3000t)
 		fw_setenv mtdparts "nmbm0:1024k(bl2),256k(Nvram),256k(Bdata),2048k(factory),2048k(fip),256k(crash),256k(crash_log),34816k(ubi),34816k(ubi1),32768k(overlay),12288k(data),256k(KF)"
-		;;
-	xiaomi,redmi-router-ax6000-stock)
-		fw_setenv mtdparts "nmbm0:1024k(bl2),256k(Nvram),256k(Bdata),2048k(factory),2048k(fip),256k(crash),256k(crash_log),30720k(ubi),30720k(ubi1),51200k(overlay)"
 		;;
 	esac
 }
