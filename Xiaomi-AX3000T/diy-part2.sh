@@ -14,15 +14,21 @@
 
 set -e
 
-STATUS_FILE="feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js"
+#STATUS_FILE="feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js"
 
 echo "[1/5] Downloading LuCI system status patch..."
 
-mkdir -p "$(dirname "$STATUS_FILE")"
+#mkdir -p "$(dirname "$STATUS_FILE")"
 
-curl -fsSL "https://raw.githubusercontent.com/Tony91590/Xiaomi-AX3000T-build/refs/heads/Proto-beta/Xiaomi-AX3000T/10_system.js" \
-  -o "$STATUS_FILE"
+#curl -fsSL "https://raw.githubusercontent.com/Tony91590/Xiaomi-AX3000T-build/refs/heads/Proto-beta/Xiaomi-AX3000T/10_system.js" \
+#  -o "$STATUS_FILE"
 
+if patch -p1 < patches/10_system.patch; then
+    echo "✓ LuCI system status patch applied successfully."
+else
+    echo "✗ Failed to apply LuCI system status patch."
+    exit 1
+fi
 
 echo "[2/5] Patching LuCI RPC backend..."
 
