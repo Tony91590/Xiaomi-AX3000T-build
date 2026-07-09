@@ -89,6 +89,8 @@ mkdir -p files/sbin
 
 cat > files/sbin/tempinfo <<'EOF'
 #!/bin/sh
+#
+# MediaTek Filogic platform support: CPU and WiFi temperature monitoring
 
 IEEE_PATH="/sys/class/ieee80211"
 THERMAL_PATH="/sys/class/thermal"
