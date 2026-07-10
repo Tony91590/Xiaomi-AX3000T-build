@@ -20,7 +20,7 @@ set -e
 
 #mkdir -p "$(dirname "$STATUS_FILE")"
 
-#curl -fsSL "https://raw.githubusercontent.com/Tony91590/Xiaomi-AX3000T-build/refs/heads/Proto-beta/Xiaomi-AX3000T/10_system.js" \
+#curl -fsSL "https://raw.githubusercontent.com/Tony91590/Xiaomi-AX3000T-build/refs/heads/openwrt-25.12.5/Xiaomi-AX3000T/10_system.js" \
 #  -o "$STATUS_FILE"
 
 PATCH_FILE="$GITHUB_WORKSPACE/Xiaomi-AX3000T/10_system.patch"
