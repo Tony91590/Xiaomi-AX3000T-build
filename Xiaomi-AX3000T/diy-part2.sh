@@ -16,7 +16,7 @@ set -e
 
 #STATUS_FILE="feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js"
 
-#echo "[1/5] Downloading LuCI system status patch..."
+#echo "[1] Downloading LuCI system status patch..."
 
 #mkdir -p "$(dirname "$STATUS_FILE")"
 
@@ -25,14 +25,14 @@ set -e
 
 PATCH_FILE="$GITHUB_WORKSPACE/Xiaomi-AX3000T/10_system.patch"
 
-echo "[1/5] Applying LuCI system status patch..."
+echo "[1] Applying LuCI system status patch..."
 
 patch -p1 < "$PATCH_FILE"
 
 echo "✓ LuCI system status patch applied successfully."
 
 
-echo "[2/5] Patching LuCI RPC backend..."
+echo "[2] Patching LuCI RPC backend..."
 
 python3 <<'PY'
 from pathlib import Path
@@ -83,7 +83,7 @@ else:
 PY
 
 
-echo "[3/5] Adding ImmortalWrt packages..."
+echo "[3] Adding ImmortalWrt packages..."
 
 mkdir -p files/sbin
 
@@ -119,12 +119,12 @@ cat > files/usr/share/rpcd/acl.d/luci-mod-status-autocore.json <<'EOF'
 EOF
 
 
-echo "[4/5] Kernel tweak (mt76 / AX3000T)..."
+echo "[4] Kernel tweak (mt76 / AX3000T)..."
 
 sed -i '/AUTOLOAD:=$(call AutoProbe,mt7915e)/a \  MODPARAMS.mt7915e:=wed_enable=Y' package/kernel/mt76/Makefile
 
 
-echo "[5/5] LuCI theme Argon..."
+echo "[5] LuCI theme Argon..."
 
 rm -rf package/luci-theme-argon package/luci-app-argon-config
 
@@ -132,7 +132,7 @@ git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon.git package/lu
 git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
 
 
-echo "[6/5] Default WiFi + firewall config..."
+echo "[6] Default WiFi + firewall config..."
 
 mkdir -p files/etc/uci-defaults
 
