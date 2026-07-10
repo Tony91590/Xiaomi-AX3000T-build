@@ -37,7 +37,7 @@ EOF
 grep -n "OpenWrt" package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 grep -R '\["FR"\]' package/mtk/applications/mtwifi-cfg/files/mtwifi-cfg/mtwifi_defs.lua
 
-cat > target/linux/mediatek/filogic/base-files/etc/init.d/bootcount <<'BOOTCOUNT_EOF'
+cat > target/linux/mediatek/mt7981/base-files/etc/init.d/bootcount <<'BOOTCOUNT_EOF'
 #!/bin/sh /etc/rc.common
 # SPDX-License-Identifier: GPL-2.0-only
 
