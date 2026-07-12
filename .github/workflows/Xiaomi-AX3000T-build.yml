@@ -20,7 +20,7 @@ on:
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
-  REPO_COMMIT: 
+  REPO_COMMIT: 7db3f7518ceab66c80e1949e0027bc5f527110df
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: Xiaomi-AX3000T/.config
   DIY_P1_SH: Xiaomi-AX3000T/diy-part1.sh
