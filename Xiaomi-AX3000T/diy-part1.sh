@@ -21,6 +21,6 @@
 cat > feeds.conf.default << 'EOF'
 src-git packages https://github.com/coolsnowwolf/packages
 src-git luci https://github.com/coolsnowwolf/luci.git^ddbc5ea
-src-git routing https://github.com/coolsnowwolf/routing
+src-git routing https://github.com/coolsnowwolf/routing.git^de13bb5
 src-git telephony https://github.com/coolsnowwolf/telephony.git^b2a5bc8
 EOF
