@@ -306,3 +306,21 @@ sed -i 's/zh_cn/auto/g' feeds/luci/modules/luci-base/root/etc/uci-defaults/luci-
 #sed -i '/AUTOLOAD:=$(call AutoProbe,mt7915e)/a \  MODPARAMS.mt7915e:=wed_enable=Y' package/kernel/mt76/Makefile
 cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/index.htm package/lean/autocore/files/arm/
 cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/zones.lua feeds/luci/applications/luci-app-firewall/luasrc/model/cbi/firewall/
+
+mkdir -p files/sbin
+
+cat > files/sbin/tempinfo <<'EOF'
+#!/bin/sh
+#
+# MediaTek Filogic platform support: CPU and WiFi temperature monitoring
+
+IEEE_PATH="/sys/class/ieee80211"
+THERMAL_PATH="/sys/class/thermal"
+
+wifi_temp="$(awk '{printf("%.1f°C ", $0 / 1000)}' "$IEEE_PATH"/phy*/hwmon*/temp1_input 2>"/dev/null" | awk '$1=$1')"
+cpu_temp="$(awk '{printf("%.1f°C", $0 / 1000)}' "$THERMAL_PATH/thermal_zone0/temp" 2>"/dev/null")"
+
+echo -n "CPU: $cpu_temp, WiFi: $wifi_temp"
+EOF
+
+chmod +x files/sbin/tempinfo
