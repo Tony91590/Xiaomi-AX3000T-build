@@ -23,7 +23,7 @@
 +  IMAGE/factory.bin := append-ubi | check-size $$$$(IMAGE_SIZE)
 +  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
 +endef
-+TARGET_DEVICES += xiaomi_mi-router-wr30u-112m-nmbm
++TARGET_DEVICES += xiaomi_mi-router-ax3000t-112m-nmbm
 +
  define Device/xiaomi_mi-router-wr30u-stock
    DEVICE_VENDOR := Xiaomi
