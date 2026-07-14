@@ -331,13 +331,6 @@ git clone --depth=1 https://github.com/Tony91590/luci-theme-argon_new.git packag
 cat > package/lean/default-settings/files/zzz-default-settings <<'DEFAULT_EOF'
 #!/bin/sh
 
-uci set luci.main.lang=zh_cn
-uci commit luci
-
-uci set system.@system[0].timezone=CST-8
-uci set system.@system[0].zonename=Asia/Shanghai
-uci commit system
-
 uci set fstab.@global[0].anon_mount=1
 uci commit fstab
 
