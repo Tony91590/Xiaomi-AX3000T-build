@@ -1,5 +1,4 @@
 REQUIRE_IMAGE_METADATA=1
-RAMFS_COPY_BIN='fitblk fit_check_sign'
 
 xiaomi_initial_setup()
 {
