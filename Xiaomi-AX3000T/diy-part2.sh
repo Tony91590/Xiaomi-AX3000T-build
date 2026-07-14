@@ -323,3 +323,7 @@ echo -n "CPU: $cpu_temp, WiFi: $wifi_temp"
 EOF
 
 chmod +x files/sbin/tempinfo
+
+rm -rf package/luci-theme-argon_new
+
+git clone --depth=1 https://github.com/Tony91590/luci-theme-argon_new.git package/luci-theme-argon_new
