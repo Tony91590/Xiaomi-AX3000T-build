@@ -54,13 +54,14 @@
  	xiaomi,redmi-router-ax6000-stock|\
 --- a/target/linux/mediatek/image/filogic.mk
 +++ b/target/linux/mediatek/image/filogic.mk
-@@ -927,6 +927,27 @@
+@@ -927,6 +927,28 @@
  endef
  TARGET_DEVICES += xiaomi_mi-router-ax3000t-ubootmod
 
 +define Device/xiaomi_mi-router-ax3000t-112m-nmbm
 +  DEVICE_VENDOR := Xiaomi
-+  DEVICE_MODEL := Mi Router AX3000T (112M UBI with NMBM-Enabled layout)
++  DEVICE_MODEL := Mi Router AX3000T
++  DEVICE_VARIANT := (custom U-Boot layout)
 +  DEVICE_DTS := mt7981b-xiaomi-mi-router-ax3000t-112m-nmbm
 +  DEVICE_DTS_DIR := ../dts
 +  UBINIZE_OPTS := -E 5
