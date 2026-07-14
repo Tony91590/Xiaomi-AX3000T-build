@@ -14,6 +14,12 @@
 
 set -e
 
+PATCH_DTS="$GITHUB_WORKSPACE/Xiaomi-AX3000T/10_system.patch"
+
+echo "[0] Applying DTS patch..."
+
+patch -p1 < "$PATCH_DTS"
+
 #STATUS_FILE="feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js"
 
 #echo "[1] Downloading LuCI system status patch..."
