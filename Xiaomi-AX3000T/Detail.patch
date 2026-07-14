@@ -4,7 +4,7 @@
  endef
  TARGET_DEVICES += xiaomi_mi-router-ax3000t-ubootmod
 
-+define Device/xiaomi_mi-router-wr30u-112m-nmbm
++define Device/xiaomi_mi-router-ax3000t-112m-nmbm
 +  DEVICE_VENDOR := Xiaomi
 +  DEVICE_MODEL := Mi Router WR30U
 +  DEVICE_VARIANT := (custom U-Boot layout)
