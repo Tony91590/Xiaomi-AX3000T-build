@@ -54,7 +54,7 @@
  	xiaomi,redmi-router-ax6000-stock|\
 --- a/target/linux/mediatek/image/filogic.mk
 +++ b/target/linux/mediatek/image/filogic.mk
-@@ -927,6 +927,24 @@
+@@ -927,6 +927,27 @@
  endef
  TARGET_DEVICES += xiaomi_mi-router-ax3000t-ubootmod
 
