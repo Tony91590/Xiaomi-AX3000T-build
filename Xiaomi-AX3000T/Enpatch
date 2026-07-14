@@ -1,20 +1,22 @@
 REQUIRE_IMAGE_METADATA=1
+RAMFS_COPY_BIN='fitblk fit_check_sign'
 
-xiaomi_initial_setup() {
+xiaomi_initial_setup()
+{
+	# initialize UBI and setup uboot-env if it's running on initramfs
 	[ "$(rootfs_type)" = "tmpfs" ] || return 0
 
-	local mtdnum="$(find_mtd_index ubi)"
-	local kern_mtdnum="$(find_mtd_index ubi_kernel)"
-
-	[ -n "$mtdnum" ] || {
+	local mtdnum="$( find_mtd_index ubi )"
+	if [ ! "$mtdnum" ]; then
 		echo "unable to find mtd partition ubi"
 		return 1
-	}
+	fi
 
-	[ -n "$kern_mtdnum" ] || {
+	local kern_mtdnum="$( find_mtd_index ubi_kernel )"
+	if [ ! "$kern_mtdnum" ]; then
 		echo "unable to find mtd partition ubi_kernel"
 		return 1
-	}
+	fi
 
 	ubidetach -m "$mtdnum"
 	ubiformat /dev/mtd$mtdnum -y
@@ -22,30 +24,40 @@ xiaomi_initial_setup() {
 	ubidetach -m "$kern_mtdnum"
 	ubiformat /dev/mtd$kern_mtdnum -y
 
-	if fw_printenv -n flag_try_sys2_failed >/dev/null 2>&1; then
-		fw_setenv boot_wait on
-		fw_setenv uart_en 1
-		fw_setenv flag_boot_rootfs 0
-		fw_setenv flag_last_success 1
-		fw_setenv flag_boot_success 1
-		fw_setenv flag_try_sys1_failed 8
-		fw_setenv flag_try_sys2_failed 8
-
-		fw_setenv mtdparts \
-			"nmbm0:1024k(bl2),256k(Nvram),256k(Bdata),2048k(factory),2048k(fip),256k(crash),256k(crash_log),34816k(ubi),34816k(ubi1),32768k(overlay),12288k(data),256k(KF)"
+	if ! fw_printenv -n flag_try_sys2_failed &>/dev/null; then
+		echo "failed to access u-boot-env. skip env setup."
+		return 0
 	fi
+
+	fw_setenv -s - <<-EOF
+		boot_wait on
+		uart_en 1
+		flag_boot_rootfs 0
+		flag_last_success 1
+		flag_boot_success 1
+		flag_try_sys1_failed 8
+		flag_try_sys2_failed 8
+	EOF
+
+	local board=$(board_name)
+	case "$board" in
+	xiaomi,mi-router-ax3000t)
+		fw_setenv mtdparts "nmbm0:1024k(bl2),256k(Nvram),256k(Bdata),2048k(factory),2048k(fip),256k(crash),256k(crash_log),34816k(ubi),34816k(ubi1),32768k(overlay),12288k(data),256k(KF)"
+		;;
+	esac
 }
 
 platform_do_upgrade() {
-	case "$(board_name)" in
+	local board=$(board_name)
+
+	case "$board" in
 	xiaomi,mi-router-ax3000t)
-		CI_KERN_UBIPART="ubi_kernel"
-		CI_ROOT_UBIPART="ubi"
+		CI_KERN_UBIPART=ubi_kernel
+		CI_ROOT_UBIPART=ubi
 		nand_do_upgrade "$1"
 		;;
 	*)
-		echo "Unsupported board: $(board_name)"
-		return 1
+		nand_do_upgrade "$1"
 		;;
 	esac
 }
@@ -53,19 +65,24 @@ platform_do_upgrade() {
 PART_NAME=firmware
 
 platform_check_image() {
-	case "$(board_name)" in
+	local board=$(board_name)
+
+	[ "$#" -gt 1 ] && return 1
+
+	case "$board" in
 	xiaomi,mi-router-ax3000t)
-		nand_do_platform_check "$(board_name)" "$1"
-		;;
-	*)
-		echo "Unsupported board: $(board_name)"
-		return 1
+		nand_do_platform_check "$board" "$1"
+		return $?
 		;;
 	esac
+
+	return 0
 }
 
 platform_pre_upgrade() {
-	case "$(board_name)" in
+	local board=$(board_name)
+
+	case "$board" in
 	xiaomi,mi-router-ax3000t)
 		xiaomi_initial_setup
 		;;
