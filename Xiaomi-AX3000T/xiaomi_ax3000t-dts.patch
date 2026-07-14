@@ -54,10 +54,12 @@
  	xiaomi,redmi-router-ax6000-stock|\
 --- a/target/linux/mediatek/image/filogic.mk
 +++ b/target/linux/mediatek/image/filogic.mk
-@@ -927,6 +927,23 @@
+--- a/target/linux/mediatek/image/filogic.mk
++++ b/target/linux/mediatek/image/filogic.mk
+@@ -927,6 +927,24 @@
  endef
  TARGET_DEVICES += xiaomi_mi-router-ax3000t-ubootmod
- 
+
 +define Device/xiaomi_mi-router-ax3000t-112m-nmbm
 +  DEVICE_VENDOR := Xiaomi
 +  DEVICE_MODEL := Mi Router AX3000T (112M UBI with NMBM-Enabled layout)
@@ -66,11 +68,15 @@
 +  UBINIZE_OPTS := -E 5
 +  BLOCKSIZE := 128k
 +  PAGESIZE := 2048
++  IMAGE_SIZE := 114688k
++  KERNEL_IN_UBI := 1
 +  DEVICE_PACKAGES := kmod-mt7981-firmware mt7981-wo-firmware
 +ifneq ($(CONFIG_TARGET_ROOTFS_INITRAMFS),)
 +  ARTIFACTS := initramfs-factory.ubi
 +  ARTIFACT/initramfs-factory.ubi := append-image-stage initramfs-kernel.bin | ubinize-kernel
 +endif
++  IMAGES += factory.bin
++  IMAGE/factory.bin := append-ubi | check-size $$$$(IMAGE_SIZE)
 +  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
 +endef
 +TARGET_DEVICES += xiaomi_mi-router-ax3000t-112m-nmbm
