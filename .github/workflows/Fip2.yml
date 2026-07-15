@@ -57,14 +57,6 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
-        
-        if [ -n "$REPO_COMMIT" ]; then
-          echo "Checkout commit $REPO_COMMIT"
-          git checkout "$REPO_COMMIT"
-        else
-          echo "Using branch $REPO_BRANCH"
-        fi
-        
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
          
     - name: Load-feeds.conf.default & DIY_P1_SH
