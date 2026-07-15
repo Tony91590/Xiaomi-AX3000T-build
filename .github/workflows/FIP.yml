@@ -105,7 +105,8 @@ jobs:
       - name: 查看磁盘使用情况
         if: always()
         run: df -hT
-              - name: 整理文件
+        
+      - name: 整理文件
         id: organize
         if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
         run: |
