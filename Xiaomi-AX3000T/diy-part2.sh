@@ -14,7 +14,7 @@
 
 set -e
 
-PATCH_DTS="$GITHUB_WORKSPACE/Xiaomi-AX3000T/xiaomi_ax3000t-dts.patch"
+PATCH_DTS="$GITHUB_WORKSPACE/Xiaomi-AX3000T/xiaomi_ax3000t-112m-nmbm-dts.patch"
 
 echo "[0] Applying DTS patch..."
 
