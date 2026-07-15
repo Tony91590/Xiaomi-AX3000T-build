@@ -1,13 +1,3 @@
-#
-# Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
-#
-# This is free software, licensed under the MIT License.
-# See /LICENSE for more information.
-#
-# https://github.com/P3TERX/Actions-OpenWrt
-# Description: Build OpenWrt using GitHub Actions
-#
-###############改名字##############
 name: Redmi-AX6000-FIP-hanwckf
 
 on:
@@ -15,11 +5,9 @@ on:
   workflow_dispatch:
     inputs:
       ssh:
-        description: 'SSH connection to Actions'
+        description: SSH connection to Actions
         required: false
-        default: 'false'
-#  schedule:
-#    - cron: 0 16 * * *
+        default: "false"
 
 env:
   REPO_URL: https://github.com/hanwckf/bl-mt798x
@@ -28,91 +16,136 @@ env:
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  ###############改名字##############
   OPENWRT_NAME: hanwckf
   DEVICE_NAME: redmi_ax6000-fip
-  
+
 permissions:
   contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: 检查项目分支
-      uses: actions/checkout@main
+      - name: 检查项目分支
+        uses: actions/checkout@v4
 
-    - name: 初始化编译环境
-      env:
-        DEBIAN_FRONTEND: noninteractive
-      run: |
-        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-        sudo -E apt-get -qq update
-        sudo bash -c 'bash <(curl -sL https://build-scripts.immortalwrt.eu.org/init_build_environment.sh)'
-        sudo apt-get autoremove --purge -y && sudo apt-get clean
-        sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /workdir && sudo chown $USER:$GROUPS /workdir
-        
-    - name: 下载uboot源码
-      working-directory: /workdir
-      run: |
-        df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-      
-    - name: SSH链接管理
-      uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-      env:
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        
-    - name: 编译uboot
-      id: compile
-      run: |
-        cd openwrt
-        echo -e "$(nproc) thread compile"
-        SOC=mt7986 BOARD=redmi_ax6000 MULTI_LAYOUT=1 ./build.sh
-        echo "FILE_DATE=$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_ENV
-        echo "status=success" >> $GITHUB_OUTPUT
-        
-    - name: 查看磁盘使用情况
-      if: (!cancelled())
-      run: df -hT
+      - name: 初始化编译环境
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo rm -rf /etc/apt/sources.list.d/*
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
 
-    - name: 整理文件
-      id: organize
-      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
-      run: | 
-        cd openwrt/output
-        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
-        echo "status=success" >> $GITHUB_OUTPUT
-      
-    - name: 上传uboot到Artifacts
-      uses: actions/upload-artifact@main
-      if: steps.organize.outputs.status == 'success' && !cancelled()
-      with:
-        name: ${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${{ env.DEVICE_NAME }}
-        path: ${{ env.FIRMWARE }}
+          sudo apt-get update
 
-    - name: 生成release标签
-      id: tag
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
-      run: |
-        echo "release_tag=${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${{ env.DEVICE_NAME }}" >> $GITHUB_OUTPUT
-        touch release.txt
-        echo "由衷感谢所有为openwrt无私奉献的大佬们" >> release.txt
-        echo "📥 uboot下载" >> release.txt
-        echo "status=success" >> $GITHUB_OUTPUT
-        
-    - name: 发布至release
-      uses: Timheuer/action-gh-release@master
-      if: steps.tag.outputs.status == 'success' && !cancelled()
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        files: ${{ env.FIRMWARE }}/*
-        name: ${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${{ env.DEVICE_NAME }}
-        tag_name: ${{ steps.tag.outputs.release_tag }}
-        body_path: release.txt
+          sudo bash -c 'bash <(curl -fsSL https://build-scripts.immortalwrt.eu.org/init_build_environment.sh)'
+
+          sudo apt-get update
+
+          sudo apt-get install -y \
+            gcc-aarch64-linux-gnu \
+            g++-aarch64-linux-gnu \
+            binutils-aarch64-linux-gnu \
+            make \
+            flex \
+            bison \
+            libssl-dev \
+            device-tree-compiler \
+            python3 \
+            python3-pip
+
+          echo "========== TOOLCHAIN =========="
+          which aarch64-linux-gnu-gcc || true
+          aarch64-linux-gnu-gcc --version || true
+
+          sudo apt-get autoremove --purge -y
+          sudo apt-get clean
+
+          sudo timedatectl set-timezone "$TZ"
+
+          sudo mkdir -p /workdir
+          sudo chown "$USER:$USER" /workdir
+
+      - name: 下载uboot源码
+        working-directory: /workdir
+        run: |
+          df -hT $PWD
+          git clone $REPO_URL -b $REPO_BRANCH openwrt
+          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+
+      - name: SSH链接管理
+        uses: P3TERX/ssh2actions@v1.0.0
+        if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh != 'false') || contains(github.event.action, 'ssh')
+        env:
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
+      - name: 编译uboot
+        id: compile
+        run: |
+          cd openwrt
+
+          echo "Compile with $(nproc) threads"
+
+          export CROSS_COMPILE=aarch64-linux-gnu-
+
+          echo "PATH=$PATH"
+          which aarch64-linux-gnu-gcc
+          aarch64-linux-gnu-gcc --version
+
+          SOC=mt7986 BOARD=redmi_ax6000 MULTI_LAYOUT=1 ./build.sh
+
+          echo "========== BUILD RESULT =========="
+          find . -maxdepth 3
+
+          echo "FILE_DATE=$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_ENV
+          echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: 查看磁盘使用情况
+        if: always()
+        run: df -hT
+              - name: 整理文件
+        id: organize
+        if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
+        run: |
+          if [ ! -d openwrt/output ]; then
+            echo "ERROR: openwrt/output not found!"
+            echo "Searching generated files..."
+            find openwrt -type f | grep -E "bin|img|fip" || true
+            exit 1
+          fi
+
+          cd openwrt/output
+
+          echo "========== OUTPUT FILES =========="
+          ls -lah
+
+          echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+          echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: 上传uboot到Artifacts
+        uses: actions/upload-artifact@v4
+        if: steps.organize.outputs.status == 'success' && !cancelled()
+        with:
+          name: ${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${{ env.DEVICE_NAME }}
+          path: ${{ env.FIRMWARE }}
+
+      - name: 生成release标签
+        id: tag
+        if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+        run: |
+          echo "release_tag=${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${{ env.DEVICE_NAME }}" >> $GITHUB_OUTPUT
+
+
+          echo "status=success" >> $GITHUB_OUTPUT
+
+      - name: 发布至release
+        uses: softprops/action-gh-release@v2
+        if: steps.tag.outputs.status == 'success' && !cancelled()
+        with:
+          files: ${{ env.FIRMWARE }}/*
+          name: ${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${{ env.DEVICE_NAME }}
+          tag_name: ${{ steps.tag.outputs.release_tag }}
+          body_path: release.txt
+          
