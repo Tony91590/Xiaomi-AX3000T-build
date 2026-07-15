@@ -32,10 +32,13 @@ env:
   ###############改名字##############
   OPENWRT_NAME: hanwckf
   DEVICE_NAME: redmi_ax6000-fip
+  
+permissions:
+  contents: write
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     
     steps:
     - name: 检查项目分支
