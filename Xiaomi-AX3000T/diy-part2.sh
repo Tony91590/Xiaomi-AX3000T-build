@@ -16,29 +16,20 @@ set -e
 
 PATCH_DTS="$GITHUB_WORKSPACE/Xiaomi-AX3000T/xiaomi_ax3000t-112m-nmbm-dts.patch"
 
-echo "[0] Applying DTS patch..."
+echo "[1] Applying DTS patch..."
 
 patch -p1 < "$PATCH_DTS"
 
-#STATUS_FILE="feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js"
-
-#echo "[1] Downloading LuCI system status patch..."
-
-#mkdir -p "$(dirname "$STATUS_FILE")"
-
-#curl -fsSL "https://raw.githubusercontent.com/Tony91590/Xiaomi-AX3000T-build/refs/heads/openwrt-25.12.5/Xiaomi-AX3000T/10_system.js" \
-#  -o "$STATUS_FILE"
-
 PATCH_FILE="$GITHUB_WORKSPACE/Xiaomi-AX3000T/10_system.patch"
 
-echo "[1] Applying LuCI system status patch..."
+echo "[2] Applying LuCI system status patch..."
 
 patch -p1 < "$PATCH_FILE"
 
 echo "✓ LuCI system status patch applied successfully."
 
 
-echo "[2] Patching LuCI RPC backend..."
+echo "[3] Patching LuCI RPC backend..."
 
 python3 <<'PY'
 from pathlib import Path
@@ -89,7 +80,7 @@ else:
 PY
 
 
-echo "[3] Adding ImmortalWrt packages..."
+echo "[4] Adding ImmortalWrt packages..."
 
 mkdir -p files/sbin
 
@@ -125,12 +116,12 @@ cat > files/usr/share/rpcd/acl.d/luci-mod-status-autocore.json <<'EOF'
 EOF
 
 
-echo "[4] Kernel tweak (mt76 / AX3000T)..."
+echo "[5] Kernel tweak (mt76 / AX3000T)..."
 
 sed -i '/AUTOLOAD:=$(call AutoProbe,mt7915e)/a \  MODPARAMS.mt7915e:=wed_enable=Y' package/kernel/mt76/Makefile
 
 
-echo "[5] LuCI theme Argon..."
+echo "[6] LuCI theme Argon..."
 
 rm -rf package/luci-theme-argon package/luci-app-argon-config
 
@@ -138,7 +129,7 @@ git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon.git package/lu
 git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
 
 
-echo "[6] Default WiFi + firewall config..."
+echo "[7] Default WiFi + firewall config..."
 
 mkdir -p files/etc/uci-defaults
 
