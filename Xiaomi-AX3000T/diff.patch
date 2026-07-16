@@ -44,7 +44,6 @@
 +		reg = <0x2800000 0x4e00000>;
 +	};
  };
-\ No newline at end of file
 --- a/target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi
 +++ b/target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi
 @@ -280,6 +280,7 @@
