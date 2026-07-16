@@ -58,14 +58,12 @@ platform_do_upgrade() {
 	local board=$(board_name)
 
 	case "$board" in
-
 	asus,tuf-ax4200|\
 	asus,tuf-ax6000)
 		CI_UBIPART="UBI_DEV"
 		CI_KERNPART="linux"
 		nand_do_upgrade "$1"
 		;;
-
 	bananapi,bpi-r3|\
 	bananapi,bpi-r4|\
 	bananapi,bpi-r4-2g5|\
@@ -73,33 +71,27 @@ platform_do_upgrade() {
 	bananapi,bpi-r4-lite)
 		[ -e /dev/fit0 ] && fitblk /dev/fit0
 		[ -e /dev/fitrw ] && fitblk /dev/fitrw
-
 		bootdev="$(fitblk_get_bootdev)"
-
 		case "$bootdev" in
 		mmc*)
 			EMMC_KERN_DEV="/dev/$bootdev"
 			emmc_do_upgrade "$1"
 			;;
-
 		mtdblock*)
 			PART_NAME="/dev/mtd${bootdev:8}"
 			default_do_upgrade "$1"
 			;;
-
 		ubiblock*)
 			CI_KERNPART="fit"
 			nand_do_upgrade "$1"
 			;;
 		esac
 		;;
-
 	xiaomi,mi-router-ax3000t)
 		CI_KERN_UBIPART="ubi_kernel"
 		CI_ROOT_UBIPART="ubi"
 		nand_do_upgrade "$1"
 		;;
-
 	cmcc,rax3000m-emmc|\
 	cmcc,xr30-emmc|\
 	glinet,gl-mt2500|\
@@ -114,11 +106,9 @@ platform_do_upgrade() {
 		CI_ROOTPART="rootfs"
 		emmc_do_upgrade "$1"
 		;;
-
 	*)
 		nand_do_upgrade "$1"
 		;;
-
 	esac
 }
 
