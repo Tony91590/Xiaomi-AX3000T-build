@@ -12,16 +12,60 @@ asus_initial_setup()
 	ubimkvol /dev/ubi0 -N jffs2 -s 0x3e000
 }
 
+xiaomi_initial_setup()
+{
+	# initialize UBI and setup uboot-env if it's running on initramfs
+	[ "$(rootfs_type)" = "tmpfs" ] || return 0
+
+	local mtdnum="$(find_mtd_index ubi)"
+	if [ ! "$mtdnum" ]; then
+		echo "unable to find mtd partition ubi"
+		return 1
+	fi
+
+	local kern_mtdnum="$(find_mtd_index ubi_kernel)"
+	if [ ! "$kern_mtdnum" ]; then
+		echo "unable to find mtd partition ubi_kernel"
+		return 1
+	fi
+
+	ubidetach -m "$mtdnum"
+	ubiformat /dev/mtd$mtdnum -y
+
+	ubidetach -m "$kern_mtdnum"
+	ubiformat /dev/mtd$kern_mtdnum -y
+
+	if ! fw_printenv -n flag_try_sys2_failed &>/dev/null; then
+		echo "failed to access u-boot-env. skip env setup."
+		return 0
+	fi
+
+	fw_setenv -s - <<-EOF
+		boot_wait on
+		uart_en 1
+		flag_boot_rootfs 0
+		flag_last_success 1
+		flag_boot_success 1
+		flag_try_sys1_failed 8
+		flag_try_sys2_failed 8
+	EOF
+
+	fw_setenv mtdparts "nmbm0:1024k(bl2),256k(Nvram),256k(Bdata),2048k(factory),2048k(fip),256k(crash),256k(crash_log),34816k(ubi),34816k(ubi1),32768k(overlay),12288k(data),256k(KF)"
+}
+
+
 platform_do_upgrade() {
 	local board=$(board_name)
 
 	case "$board" in
+
 	asus,tuf-ax4200|\
 	asus,tuf-ax6000)
 		CI_UBIPART="UBI_DEV"
 		CI_KERNPART="linux"
 		nand_do_upgrade "$1"
 		;;
+
 	bananapi,bpi-r3|\
 	bananapi,bpi-r4|\
 	bananapi,bpi-r4-2g5|\
@@ -29,22 +73,33 @@ platform_do_upgrade() {
 	bananapi,bpi-r4-lite)
 		[ -e /dev/fit0 ] && fitblk /dev/fit0
 		[ -e /dev/fitrw ] && fitblk /dev/fitrw
+
 		bootdev="$(fitblk_get_bootdev)"
+
 		case "$bootdev" in
 		mmc*)
 			EMMC_KERN_DEV="/dev/$bootdev"
 			emmc_do_upgrade "$1"
 			;;
+
 		mtdblock*)
 			PART_NAME="/dev/mtd${bootdev:8}"
 			default_do_upgrade "$1"
 			;;
+
 		ubiblock*)
 			CI_KERNPART="fit"
 			nand_do_upgrade "$1"
 			;;
 		esac
 		;;
+
+	xiaomi,mi-router-ax3000t)
+		CI_KERN_UBIPART="ubi_kernel"
+		CI_ROOT_UBIPART="ubi"
+		nand_do_upgrade "$1"
+		;;
+
 	cmcc,rax3000m-emmc|\
 	cmcc,xr30-emmc|\
 	glinet,gl-mt2500|\
@@ -59,13 +114,17 @@ platform_do_upgrade() {
 		CI_ROOTPART="rootfs"
 		emmc_do_upgrade "$1"
 		;;
+
 	*)
 		nand_do_upgrade "$1"
 		;;
+
 	esac
 }
 
+
 PART_NAME=firmware
+
 
 platform_check_image() {
 	local board=$(board_name)
@@ -74,6 +133,7 @@ platform_check_image() {
 	[ "$#" -gt 1 ] && return 1
 
 	case "$board" in
+
 	bananapi,bpi-r3|\
 	bananapi,bpi-r4|\
 	bananapi,bpi-r4-2g5|\
@@ -85,17 +145,24 @@ platform_check_image() {
 		}
 		return 0
 		;;
+
+	xiaomi,mi-router-ax3000t)
+		nand_do_platform_check "$board" "$1"
+		return $?
+		;;
+
 	*)
 		nand_do_platform_check "$board" "$1"
 		return 0
 		;;
-	esac
 
-	return 0
+	esac
 }
+
 
 platform_copy_config() {
 	case "$(board_name)" in
+
 	bananapi,bpi-r3|\
 	bananapi,bpi-r4|\
 	bananapi,bpi-r4-2g5|\
@@ -107,6 +174,7 @@ platform_copy_config() {
 			;;
 		esac
 		;;
+
 	cmcc,rax3000m-emmc|\
 	cmcc,xr30-emmc|\
 	glinet,gl-mt2500|\
@@ -119,15 +187,23 @@ platform_copy_config() {
 	jdcloud,re-cs-05)
 		emmc_copy_config
 		;;
+
 	esac
 }
+
 
 platform_pre_upgrade() {
 	local board=$(board_name)
 
 	case "$board" in
+
 	asus,tuf-ax4200)
 		asus_initial_setup
 		;;
+
+	xiaomi,mi-router-ax3000t)
+		xiaomi_initial_setup
+		;;
+
 	esac
 }
