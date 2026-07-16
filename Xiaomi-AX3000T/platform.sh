@@ -125,7 +125,6 @@ platform_do_upgrade() {
 
 PART_NAME=firmware
 
-
 platform_check_image() {
 	local board=$(board_name)
 	local magic="$(get_magic_long "$1")"
@@ -133,7 +132,6 @@ platform_check_image() {
 	[ "$#" -gt 1 ] && return 1
 
 	case "$board" in
-
 	bananapi,bpi-r3|\
 	bananapi,bpi-r4|\
 	bananapi,bpi-r4-2g5|\
@@ -145,20 +143,14 @@ platform_check_image() {
 		}
 		return 0
 		;;
-
-	xiaomi,mi-router-ax3000t)
-		nand_do_platform_check "$board" "$1"
-		return $?
-		;;
-
 	*)
 		nand_do_platform_check "$board" "$1"
 		return 0
 		;;
-
 	esac
-}
 
+	return 0
+}
 
 platform_copy_config() {
 	case "$(board_name)" in
