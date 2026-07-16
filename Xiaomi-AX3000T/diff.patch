@@ -1,0 +1,3 @@
+diff --git a/feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js b/feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js
+--- a/feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js
++++ b/feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js
