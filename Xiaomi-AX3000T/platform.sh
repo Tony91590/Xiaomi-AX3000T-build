@@ -144,7 +144,6 @@ platform_check_image() {
 
 platform_copy_config() {
 	case "$(board_name)" in
-
 	bananapi,bpi-r3|\
 	bananapi,bpi-r4|\
 	bananapi,bpi-r4-2g5|\
@@ -156,7 +155,6 @@ platform_copy_config() {
 			;;
 		esac
 		;;
-
 	cmcc,rax3000m-emmc|\
 	cmcc,xr30-emmc|\
 	glinet,gl-mt2500|\
@@ -169,10 +167,8 @@ platform_copy_config() {
 	jdcloud,re-cs-05)
 		emmc_copy_config
 		;;
-
 	esac
 }
-
 
 platform_pre_upgrade() {
 	local board=$(board_name)
@@ -182,7 +178,6 @@ platform_pre_upgrade() {
 	asus,tuf-ax4200)
 		asus_initial_setup
 		;;
-
 	xiaomi,mi-router-ax3000t)
 		xiaomi_initial_setup
 		;;
