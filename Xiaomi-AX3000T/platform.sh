@@ -183,6 +183,5 @@ platform_pre_upgrade() {
 	xiaomi,mi-router-ax3000t)
 		xiaomi_initial_setup
 		;;
-
 	esac
 }
