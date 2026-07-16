@@ -116,7 +116,6 @@ platform_do_upgrade() {
 	esac
 }
 
-
 PART_NAME=firmware
 
 platform_check_image() {
@@ -178,7 +177,6 @@ platform_pre_upgrade() {
 	local board=$(board_name)
 
 	case "$board" in
-
 	asus,tuf-ax4200)
 		asus_initial_setup
 		;;
