@@ -7,6 +7,10 @@
 # 
 # Custom for Xiaomi AX3000T stock
 
+PATCH_FILE="$GITHUB_WORKSPACE/Xiaomi-AX3000T/diff.patch"
+
+patch -p1 < "$PATCH_FILE"
+
 cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/wireless.js feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/ \
     && echo "✅ wireless.js"
 
