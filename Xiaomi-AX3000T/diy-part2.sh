@@ -8,7 +8,7 @@
 # Custom for Xiaomi AX3000T stock
 
 cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/wireless.js feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/ \
-    && echo "✅ testest"
+    && echo "✅ wireless.js"
 
 cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/mt7981b-xiaomi-ax3000t.dts target/linux/mediatek/dts/ \
     && echo "✅ mt7981b-xiaomi-ax3000t.dts copié"
