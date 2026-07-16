@@ -77,25 +77,13 @@
  	cmcc,rax3000m-emmc|\
  	cmcc,xr30-emmc|\
  	glinet,gl-mt2500|\
-@@ -65,6 +116,7 @@
- 	esac
- }
-
-+
- PART_NAME=firmware
-
- platform_check_image() {
-@@ -126,8 +178,13 @@
- 	local board=$(board_name)
-
- 	case "$board" in
-+
+@@ -129,5 +180,8 @@
  	asus,tuf-ax4200)
  		asus_initial_setup
  		;;
 +	xiaomi,mi-router-ax3000t)
 +		xiaomi_initial_setup
 +		;;
-+
  	esac
  }
+\ No newline at end of file
