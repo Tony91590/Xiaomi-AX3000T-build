@@ -146,7 +146,7 @@ platform_pre_upgrade() {
 }
 PLATFORM_EOF
 
-
+cat > package/lean/default-settings/files/zzz-default-settings <<'DEFAULT_EOF'
 #!/bin/sh
 
 rm -f /usr/lib/lua/luci/view/admin_status/index/mwan.htm
@@ -200,3 +200,4 @@ rm -rf /tmp/luci-modulecache/
 rm -f /tmp/luci-indexcache
 
 exit 0
+DEFAULT_EOF
