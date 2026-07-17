@@ -163,5 +163,6 @@ EOF
 
 chmod +x files/etc/uci-defaults/99-default-settings
 
+rm -f feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js.orig
 
 echo "Done ✔"
