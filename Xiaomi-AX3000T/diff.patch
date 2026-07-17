@@ -1,3 +1,26 @@
+--- a/feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js
++++ b/feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js
+@@ -493,8 +493,7 @@
+ }
+
+ function shouldDisplayAutoChannel(hwtype, configChannel, runtimeChannel) {
+-	return configChannel == 'auto' || runtimeChannel == 'auto' ||
+-		((isQcaWifiHwtype(hwtype) || hwtype == 'mt_dbdc') && isUnsetChannelValue(configChannel));
++    return true;
+ }
+
+ function isPlausibleTxPowerValue(txpower, hwtype) {
+@@ -1879,7 +1879,7 @@
+ 		const ch = +channel;
+ 		const channelMeta = this.getChannelMeta(band, channel);
+ 		const bandName = String(band || '');
+-		const restrictWide = (band == '5g' && !(ch > 0 && ch <= 100));
++		const restrictWide = false;
+
+ 		const filtered = [];
+
+   
+===================================================================
 --- a/target/linux/mediatek/dts/mt7981b-xiaomi-ax3000t.dts 
 +++ b/target/linux/mediatek/dts/mt7981b-xiaomi-ax3000t.dts 
 @@ -32,4 +32,23 @@
@@ -24,6 +47,7 @@
 +		reg = <0x2800000 0x4e00000>;
 +	};
  };
+===================================================================
 --- a/target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi
 +++ b/target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi
 @@ -280,6 +280,7 @@
@@ -99,6 +123,7 @@
  				read-only;
  			};
  		};
+===================================================================
 --- a/target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh
 +++ b/target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh
 @@ -12,6 +12,52 @@
@@ -175,24 +200,3 @@
 +		;;
  	esac
  }
---- a/feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js
-+++ b/feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js
-@@ -493,8 +493,7 @@
- }
-
- function shouldDisplayAutoChannel(hwtype, configChannel, runtimeChannel) {
--	return configChannel == 'auto' || runtimeChannel == 'auto' ||
--		((isQcaWifiHwtype(hwtype) || hwtype == 'mt_dbdc') && isUnsetChannelValue(configChannel));
-+    return true;
- }
-
- function isPlausibleTxPowerValue(txpower, hwtype) {
-@@ -1879,7 +1879,7 @@
- 		const ch = +channel;
- 		const channelMeta = this.getChannelMeta(band, channel);
- 		const bandName = String(band || '');
--		const restrictWide = (band == '5g' && !(ch > 0 && ch <= 100));
-+		const restrictWide = false;
-
- 		const filtered = [];
-   
