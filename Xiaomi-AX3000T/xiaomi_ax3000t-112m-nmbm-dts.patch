@@ -30,7 +30,7 @@
  		;;
  	xiaomi,mi-router-ax3000t|\
  	xiaomi,mi-router-ax3000t-ubootmod|\
-+	xiaomi,mi-router-ax3000t-112m-nmbm|\
++	xiaomi,mi-router-ax3000t-mtkuboot|\
  	xiaomi,mi-router-wr30u-stock|\
  	xiaomi,mi-router-wr30u-ubootmod|\
  	xiaomi,redmi-router-ax6000-stock|\
@@ -40,7 +40,7 @@
  		;;
  	xiaomi,mi-router-ax3000t|\
  	xiaomi,mi-router-ax3000t-ubootmod|\
-+	xiaomi,mi-router-ax3000t-112m-nmbm|\
++	xiaomi,mi-router-ax3000t-mtkuboot|\
  	xiaomi,mi-router-wr30u-stock|\
  	xiaomi,mi-router-wr30u-ubootmod|\
  	xiaomi,redmi-router-ax6000-stock|\
@@ -48,7 +48,7 @@
  		;;
  	xiaomi,mi-router-ax3000t|\
  	xiaomi,mi-router-ax3000t-ubootmod|\
-+	xiaomi,mi-router-ax3000t-112m-nmbm|\
++	xiaomi,mi-router-ax3000t-mtkuboot|\
  	xiaomi,mi-router-wr30u-stock|\
  	xiaomi,mi-router-wr30u-ubootmod|\
  	xiaomi,redmi-router-ax6000-stock|\
@@ -84,7 +84,7 @@
  	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x80000" "0x10000"
  	;;
  xiaomi,mi-router-ax3000t|\
-+xiaomi,mi-router-ax3000t-112m-nmbm|\
++xiaomi,mi-router-ax3000t-mtkuboot|\
  xiaomi,mi-router-wr30u-stock|\
  xiaomi,redmi-router-ax6000-stock)
  	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x10000" "0x20000"
