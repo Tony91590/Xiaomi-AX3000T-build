@@ -42,6 +42,8 @@ cat > target/linux/mediatek/dts/mt7981b-xiaomi-mi-router-ax3000t-mtkuboot.dts <<
 };
 DTS_EOF
 
+chmod 0644 target/linux/mediatek/dts/mt7981b-xiaomi-mi-router-ax3000t-mtkuboot.dts
+
 PATCH_DTS="$GITHUB_WORKSPACE/Xiaomi-AX3000T/xiaomi_ax3000t-112m-nmbm-dts.patch"
 
 echo "[1] Applying DTS patch..."
