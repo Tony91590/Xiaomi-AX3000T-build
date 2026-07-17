@@ -94,11 +94,6 @@ sed -i '/openwrt_luci/ { s/snapshots/releases\/18.06.9/g; }'  /etc/opkg/distfeed
 sed -i '/check_signature/d' /etc/opkg.conf
 
 sed -i '/REDIRECT --to-ports 53/d' /etc/firewall.user
-echo 'iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53' >> /etc/firewall.user
-echo 'iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53' >> /etc/firewall.user
-
-echo '[ -n "$(command -v ip6tables)" ] && ip6tables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53' >> /etc/firewall.user
-echo '[ -n "$(command -v ip6tables)" ] && ip6tables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53' >> /etc/firewall.user
 
 sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
 echo "DISTRIB_REVISION='R26.05.20'" >> /etc/openwrt_release
@@ -116,3 +111,18 @@ rm -f /tmp/luci-indexcache
 
 exit 0
 DEFAULT_EOF
+
+mkdir -p target/linux/mediatek/filogic/base-files/etc/hotplug.d/iface
+
+cat > target/linux/mediatek/filogic/base-files/etc/hotplug.d/iface/99-odhcpd-reload <<'ODHCPD_EOF'
+#!/bin/sh
+
+[ "$ACTION" = "ifup" ] || exit 0
+
+if [ "$INTERFACE" = "wan6" ]; then
+        sleep 10
+        /etc/init.d/odhcpd reload
+fi
+ODHCPD_EOF
+
+chmod 0755 target/linux/mediatek/filogic/base-files/etc/hotplug.d/iface/99-odhcpd-reload
