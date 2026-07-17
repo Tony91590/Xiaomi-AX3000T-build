@@ -49,7 +49,7 @@
 +endef
 +TARGET_DEVICES += xiaomi_mi-router-ax3000t-mtkuboot
 +
- define Device/xiaomi-mi-router-wr30u-stock
+ define Device/xiaomi_mi-router-wr30u-stock
    DEVICE_VENDOR := Xiaomi
    DEVICE_MODEL := Mi Router WR30U (stock layout)
 --- a/package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic
