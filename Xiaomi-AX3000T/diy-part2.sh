@@ -94,6 +94,11 @@ sed -i '/openwrt_luci/ { s/snapshots/releases\/18.06.9/g; }'  /etc/opkg/distfeed
 sed -i '/check_signature/d' /etc/opkg.conf
 
 sed -i '/REDIRECT --to-ports 53/d' /etc/firewall.user
+echo 'iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53' >> /etc/firewall.user
+echo 'iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53' >> /etc/firewall.user
+
+echo '[ -n "$(command -v ip6tables)" ] && ip6tables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53' >> /etc/firewall.user
+echo '[ -n "$(command -v ip6tables)" ] && ip6tables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53' >> /etc/firewall.user
 
 sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
 echo "DISTRIB_REVISION='R26.05.20'" >> /etc/openwrt_release
