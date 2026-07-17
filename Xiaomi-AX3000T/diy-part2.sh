@@ -20,42 +20,6 @@ patch -p1 < "$PATCH_FILE"
 # cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/mt7981b-xiaomi_mi-router.dtsi target/linux/mediatek/dts/ \
 #     && echo "✅ mt7981b-xiaomi_mi-router.dtsi copié"
 
-mkdir -p target/linux/mediatek/filogic/base-files/etc/init.d
-	
-cat > target/linux/mediatek/filogic/base-files/etc/init.d/bootcount <<'BOOTCOUNT_EOF'
-#!/bin/sh /etc/rc.common
-# SPDX-License-Identifier: GPL-2.0-only
-
-START=99
-
-boot() {
-	case $(board_name) in
-	xiaomi,mi-router-ax3000t)
-		. /lib/upgrade/common.sh
-		[ "$(rootfs_type)" = "tmpfs" ] && \
-			logger "bootcount: initramfs mode detected, exit" && \
-			return 0
-		[ "$(fw_printenv -n flag_try_sys2_failed 2>&1)" = "8" ] && \
-			logger "bootcount: rd03 model detected, exit" && \
-			return 0
-		fw_setenv -s - <<-EOF
-			flag_boot_rootfs 0
-			flag_boot_success 1
-			flag_last_success 0
-			flag_ota_reboot 0
-			flag_try_sys1_failed 0
-			flag_try_sys2_failed 0
-		EOF
-		logger "bootcount: rd23 model detected, nvram was updated"
-		;;
-	esac
-}
-BOOTCOUNT_EOF
-
-mkdir -p target/linux/mediatek/filogic/base-files/etc/rc.d
-ln -sf ../init.d/bootcount target/linux/mediatek/filogic/base-files/etc/rc.d/S99bootcount
-chmod 0755 target/linux/mediatek/filogic/base-files/etc/init.d/bootcount
-
 cat > package/lean/default-settings/files/zzz-default-settings <<'DEFAULT_EOF'
 #!/bin/sh
 
@@ -111,18 +75,3 @@ rm -f /tmp/luci-indexcache
 
 exit 0
 DEFAULT_EOF
-
-mkdir -p target/linux/mediatek/filogic/base-files/etc/hotplug.d/iface
-
-cat > target/linux/mediatek/filogic/base-files/etc/hotplug.d/iface/99-odhcpd-reload <<'ODHCPD_EOF'
-#!/bin/sh
-
-[ "$ACTION" = "ifup" ] || exit 0
-
-if [ "$INTERFACE" = "wan6" ]; then
-        sleep 10
-        /etc/init.d/odhcpd reload
-fi
-ODHCPD_EOF
-
-chmod 0755 target/linux/mediatek/filogic/base-files/etc/hotplug.d/iface/99-odhcpd-reload
