@@ -14,6 +14,34 @@
 
 set -e
 
+mkdir -p target/linux/mediatek/dts
+
+cat > target/linux/mediatek/dts/mt7981b-xiaomi-mi-router-ax3000t-mtkuboot.dts <<'DTS_EOF'
+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
+
+/dts-v1/;
+#include "mt7981b-xiaomi-mi-router-ax3000t.dtsi"
+
+/ {
+	model = "Xiaomi Mi Router AX3000T (MTK U-Boot layout)";
+	compatible = "xiaomi,mi-router-ax3000t-mtkuboot", "mediatek,mt7981";
+};
+
+&spi_nand {
+	mediatek,nmbm;
+	mediatek,bmt-max-ratio = <1>;
+	mediatek,bmt-max-reserved-blocks = <64>;
+	mediatek,bmt-mtd-overridden-oobsize = <64>;
+};
+
+&partitions {
+	partition@600000 {
+		label = "ubi";
+		reg = <0x600000 0x7000000>;
+	};
+};
+DTS_EOF
+
 PATCH_DTS="$GITHUB_WORKSPACE/Xiaomi-AX3000T/xiaomi_ax3000t-112m-nmbm-dts.patch"
 
 echo "[1] Applying DTS patch..."
