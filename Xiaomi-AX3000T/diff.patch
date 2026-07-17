@@ -18,8 +18,6 @@
 +		const restrictWide = false;
 
  		const filtered = [];
-
-   
 ===================================================================
 --- a/target/linux/mediatek/dts/mt7981b-xiaomi-ax3000t.dts 
 +++ b/target/linux/mediatek/dts/mt7981b-xiaomi-ax3000t.dts 
