@@ -10,7 +10,7 @@
  }
 
  function isPlausibleTxPowerValue(txpower, hwtype) {
-@@ -1880,7 +1880,7 @@
+@@ -1880,7 +1879,7 @@
  		const ch = +channel;
  		const channelMeta = this.getChannelMeta(band, channel);
  		const bandName = String(band || '');
@@ -18,6 +18,7 @@
 +		const restrictWide = false;
 
  		const filtered = [];
+   
 --- a/target/linux/mediatek/dts/mt7981b-xiaomi-ax3000t.dts 
 +++ b/target/linux/mediatek/dts/mt7981b-xiaomi-ax3000t.dts 
 @@ -32,4 +32,23 @@
