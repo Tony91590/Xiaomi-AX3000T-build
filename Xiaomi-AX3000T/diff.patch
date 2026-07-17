@@ -10,7 +10,7 @@
  }
 
  function isPlausibleTxPowerValue(txpower, hwtype) {
-@@ -1880,7 +1879,7 @@
+@@ -1880,7 +1880,7 @@
  		const ch = +channel;
  		const channelMeta = this.getChannelMeta(band, channel);
  		const bandName = String(band || '');
