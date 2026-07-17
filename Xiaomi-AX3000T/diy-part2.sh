@@ -75,3 +75,5 @@ rm -f /tmp/luci-indexcache
 
 exit 0
 DEFAULT_EOF
+
+rm -f feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js.orig
