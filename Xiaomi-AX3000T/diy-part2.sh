@@ -126,3 +126,8 @@ fi
 ODHCPD_EOF
 
 chmod 0755 target/linux/mediatek/filogic/base-files/etc/hotplug.d/iface/99-odhcpd-reload
+
+rm -f feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js.orig
+rm -f target/linux/mediatek/dts/mt7981b-xiaomi-ax3000t.dts.orig
+rm -f target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi.orig
+rm -f target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh.orig
