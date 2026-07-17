@@ -190,6 +190,7 @@ EOF
 
 chmod +x files/etc/uci-defaults/99-default-settings
 
+rm -f feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js.orig
 rm -f target/linux/mediatek/base-files/lib/preinit/05_set_preinit_iface.orig
 rm -f target/linux/mediatek/filogic/base-files/etc/board.d/02_network.orig
 rm -f target/linux/mediatek/image/filogic.mk.orig
