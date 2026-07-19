@@ -31,8 +31,8 @@
 +&partitions {
 +	// ubi_kernel is the ubi partition in stock.
 +	partition@600000 {
-+		label = "ubi_kernel";
-+		reg = <0x600000 0x2200000>;
++		label = "ubi_kernel";           
++		reg = <0x0600000 0x2200000>;
 +	};
 +
 +	/* ubi is the result of squashing
@@ -49,20 +49,12 @@
 ===================================================================
 --- a/target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi
 +++ b/target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi
-@@ -280,6 +280,7 @@
- 		mediatek,nmbm;
- 		mediatek,bmt-max-ratio = <1>;
- 		mediatek,bmt-max-reserved-blocks = <64>;
-+	    mediatek,bmt-mtd-overridden-oobsize = <64>;
-
- 		partitions: partitions {
- 			compatible = "fixed-partitions";
 @@ -288,25 +289,23 @@
 
  			partition@0 {
  				label = "BL2";
 -				reg = <0x0000000 0x0100000>;
-+				reg = <0x00 0x100000>;
++				reg = <0x0000000 0x0100000>;
  				read-only;
  			};
 
@@ -70,7 +62,7 @@
  				label = "Nvram";
 -				reg = <0x0100000 0x0040000>;
 -				read-only;
-+				reg = <0x100000 0x40000>;
++				reg = <0x0100000 0x0040000>;
  			};
 
  			partition@140000 {
