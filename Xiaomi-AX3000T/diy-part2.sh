@@ -5,7 +5,7 @@
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
 # 
-# Custom for Xiaomi AX3000T stock
+# Custom for Xiaomi AX3000T
 
 PATCH_FILE="$GITHUB_WORKSPACE/Xiaomi-AX3000T/diff.patch"
 
