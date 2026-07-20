@@ -27,5 +27,3 @@ EOF
 (sleep 10; /sbin/reboot) &
 
 exit 0
-
-exit 0
