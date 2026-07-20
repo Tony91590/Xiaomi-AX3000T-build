@@ -352,7 +352,7 @@
 			* - overlay
 			* - data
 			* -
-			partition@2800000 {
+            partition@2800000 {
 		        label = "ubi";
 	        	reg = <0x2800000 0x4e00000>;
 			};
