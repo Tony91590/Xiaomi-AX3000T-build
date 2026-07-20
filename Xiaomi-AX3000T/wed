@@ -24,7 +24,4 @@ cat >/etc/modules.d/mt7915e <<'EOF'
 mt7915e wed_enable=Y
 EOF
 
-sync
-reboot
-
 exit 0
