@@ -24,4 +24,8 @@ cat >/etc/modules.d/mt7915e <<'EOF'
 mt7915e wed_enable=Y
 EOF
 
+(sleep 10; /sbin/reboot) &
+
+exit 0
+
 exit 0
