@@ -346,12 +346,12 @@
 		        reg = <0x0600000 0x2200000>;
         	};
 
-			/* ubi is the result of squashing
-			* consecutive stock partitions:
-			* - ubi1
-			* - overlay
-			* - data
-			* -
+            /* ubi is the result of squashing
+            * consecutive stock partitions:
+            * - ubi1
+            * - overlay
+            * - data
+            * -
             partition@2800000 {
 		        label = "ubi";
 	        	reg = <0x2800000 0x4e00000>;
