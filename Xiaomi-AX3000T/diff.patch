@@ -20,33 +20,6 @@
  		const filtered = [];
 
 ===================================================================
---- a/target/linux/mediatek/dts/mt7981b-xiaomi-ax3000t.dts 
-+++ b/target/linux/mediatek/dts/mt7981b-xiaomi-ax3000t.dts 
-@@ -32,4 +32,23 @@
- 			groups = "i2c0_1";
- 		};
- 	};
-+};
-+
-+&partitions {
-+	// ubi_kernel is the ubi partition in stock.
-+	partition@600000 {
-+		label = "ubi_kernel";           
-+		reg = <0x0600000 0x2200000>;
-+	};
-+
-+	/* ubi is the result of squashing
-+	 * consecutive stock partitions:
-+	 * - ubi1
-+	 * - overlay
-+	 * - data
-+	 */
-+	partition@2800000 {
-+		label = "ubi";
-+		reg = <0x2800000 0x4e00000>;
-+	};
- };
-===================================================================
 --- a/target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi
 +++ b/target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi
 @@ -340,10 +340,23 @@
@@ -60,7 +33,7 @@
 +        	// ubi_kernel is the ubi partition in stock.
 +        	partition@600000 {
 +	        	label = "ubi_kernel";
-+		        reg = <0x600000 0x2200000>;
++		        reg = <0x0600000 0x2200000>;
 +         	};
 +
 +        	/* ubi is the result of squashing
