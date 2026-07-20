@@ -11,15 +11,6 @@ PATCH_FILE="$GITHUB_WORKSPACE/Xiaomi-AX3000T/diff.patch"
 
 patch -p1 < "$PATCH_FILE"
 
-# cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/wireless.js feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/ \
-#     && echo "✅ wireless.js"
-
-# cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/mt7981b-xiaomi-ax3000t.dts target/linux/mediatek/dts/ \
-#     && echo "✅ mt7981b-xiaomi-ax3000t.dts copié"
-
-# cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/mt7981b-xiaomi_mi-router.dtsi target/linux/mediatek/dts/ \
-#     && echo "✅ mt7981b-xiaomi_mi-router.dtsi copié"
-
 mkdir -p target/linux/mediatek/filogic/base-files/etc/init.d
 	
 cat > target/linux/mediatek/filogic/base-files/etc/init.d/bootcount <<'BOOTCOUNT_EOF'
