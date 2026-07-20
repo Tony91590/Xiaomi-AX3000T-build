@@ -8,7 +8,6 @@
 # Custom for Xiaomi AX3000T stock
 
 PATCH_FILE="$GITHUB_WORKSPACE/Xiaomi-AX3000T/diff.patch"
-
 patch -p1 < "$PATCH_FILE"
 
 mkdir -p target/linux/mediatek/filogic/base-files/etc/init.d
