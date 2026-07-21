@@ -22,6 +22,9 @@ platform_do_upgrade() {
 		CI_KERNPART="linux"
 		nand_do_upgrade "$1"
 		;;
+	xiaomi,mi-router-ax3000t)
+	    fit_do_upgrade "$1"
+        ;;
 	bananapi,bpi-r3|\
 	bananapi,bpi-r4|\
 	bananapi,bpi-r4-2g5|\
