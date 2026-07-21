@@ -22,7 +22,18 @@
 ===================================================================
 --- a/target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi
 +++ b/target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi
-@@ -343,6 +343,13 @@
+@@ -277,10 +277,6 @@
+ 		spi-tx-bus-width = <4>;
+ 		spi-rx-bus-width = <4>;
+
+-		mediatek,nmbm;
+-		mediatek,bmt-max-ratio = <1>;
+-		mediatek,bmt-max-reserved-blocks = <64>;
+-
+ 		partitions: partitions {
+ 			compatible = "fixed-partitions";
+ 			#address-cells = <1>;
+@@ -343,6 +339,13 @@
  			partition@600000 {
  				label = "ubi";
  				reg = <0x0600000 0x7000000>;
