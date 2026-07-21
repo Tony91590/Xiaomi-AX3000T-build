@@ -7,6 +7,11 @@
 / {
 	model = "Xiaomi Mi Router AX3000T";
 	compatible = "xiaomi,mi-router-ax3000t", "mediatek,mt7981";
+
+	chosen {
+		bootargs-append = " root=/dev/fit0 rootwait";
+		rootdisk = <&ubi_rootdisk>;
+	};
 };
 
 &gmac0 {
@@ -22,12 +27,6 @@
 	nfc@57 {
 		compatible = "nt082c";
 		reg = <0x57>;
-	};
-};
-
-	chosen {
-		bootargs-append = " root=/dev/fit0 rootwait";
-		rootdisk = <&ubi_rootdisk>;
 	};
 };
 
