@@ -71,3 +71,20 @@
  define Device/xiaomi_mi-router-wr30u
    DEVICE_VENDOR := Xiaomi
    DEVICE_MODEL := Mi Router WR30U
++++ b/target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi
+@@ -340,10 +340,11 @@
+ 				read-only;
+ 			};
+
+-			partition@600000 {
+-				label = "ubi";
+-				reg = <0x0600000 0x7000000>;
+-			};
++	chosen {
++		bootargs-append = " root=/dev/fit0 rootwait";
++		rootdisk = <&ubi_rootdisk>;
++	};
++};
+
+ 			partition@7600000 {
+ 				label = "KF";
