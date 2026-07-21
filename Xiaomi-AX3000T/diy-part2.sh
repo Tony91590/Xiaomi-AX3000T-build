@@ -106,8 +106,8 @@ rm -f feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/netw
 rm -f target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi.orig
 rm -f target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh.orig
 
-STATUS_FILE="feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js"
+STATUS_FILE="feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/channel_analysis.js"
 mkdir -p "$(dirname "$STATUS_FILE")"
-curl -fsSL "https://raw.githubusercontent.com/Tony91590/Xiaomi-AX3000T-build/refs/heads/openwrt-25.12.5/Xiaomi-AX3000T/10_system.js" \
+curl -fsSL "https://raw.githubusercontent.com/coolsnowwolf/luci/refs/heads/openwrt-24.10/modules/luci-mod-status/htdocs/luci-static/resources/view/status/channel_analysis.js" \
   -o "$STATUS_FILE"
 
