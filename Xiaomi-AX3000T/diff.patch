@@ -22,17 +22,10 @@
 ===================================================================
 --- a/target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi
 +++ b/target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi
-@@ -340,10 +340,18 @@
- 				read-only;
- 			};
-
--			partition@600000 {
--				label = "ubi";
--				reg = <0x0600000 0x7000000>;
--			};
-+			partition@600000 {
-+				label = "ubi";
-+				reg = <0x0600000 0x7000000>;
+@@ -343,6 +343,13 @@
+ 			partition@600000 {
+ 				label = "ubi";
+ 				reg = <0x0600000 0x7000000>;
 +				compatible = "linux,ubi";
 +
 +				volumes {
@@ -40,10 +33,9 @@
 +						volname = "fit";
 +					};
 +				};
-+			};
+ 			};
 
  			partition@7600000 {
- 				label = "KF";
 ===================================================================
 --- a/target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh
 +++ b/target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh
