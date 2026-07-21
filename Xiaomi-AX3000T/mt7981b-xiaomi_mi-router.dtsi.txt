@@ -343,6 +343,13 @@
 			partition@600000 {
 				label = "ubi";
 				reg = <0x0600000 0x7000000>;
+				compatible = "linux,ubi";
+
+				volumes {
+					ubi_rootdisk: ubi-volume-fit {
+						volname = "fit";
+					};
+				};
 			};
 
 			partition@7600000 {
