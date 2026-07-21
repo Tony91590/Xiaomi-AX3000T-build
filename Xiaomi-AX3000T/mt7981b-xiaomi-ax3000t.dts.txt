@@ -25,6 +25,12 @@
 	};
 };
 
+	chosen {
+		bootargs-append = " root=/dev/fit0 rootwait";
+		rootdisk = <&ubi_rootdisk>;
+	};
+};
+
 &pio {
 	i2c_pins: i2c-pins {
 		mux {
