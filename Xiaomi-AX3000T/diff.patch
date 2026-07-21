@@ -85,16 +85,15 @@
 ===================================================================
 --- a/target/linux/mediatek/dts/mt7981b-xiaomi-ax3000t.dts
 +++ b/target/linux/mediatek/dts/mt7981b-xiaomi-ax3000t.dts
-@@ -25,6 +25,12 @@
- 	};
- };
-
+@@ -7,6 +7,11 @@
+ / {
+ 	model = "Xiaomi Mi Router AX3000T";
+ 	compatible = "xiaomi,mi-router-ax3000t", "mediatek,mt7981";
++
 +	chosen {
 +		bootargs-append = " root=/dev/fit0 rootwait";
 +		rootdisk = <&ubi_rootdisk>;
 +	};
-+};
-+
- &pio {
- 	i2c_pins: i2c-pins {
- 		mux {
+ };
+
+ &gmac0 {
