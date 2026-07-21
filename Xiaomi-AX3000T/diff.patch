@@ -83,7 +83,8 @@
    DEVICE_VENDOR := Xiaomi
    DEVICE_MODEL := Mi Router WR30U
 ===================================================================
-+++ b/target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi
++++ a/target/linux/mediatek/dts/mt7981b-xiaomi-ax3000t.dts
++++ b/target/linux/mediatek/dts/mt7981b-xiaomi-ax3000t.dts
 @@ -25,6 +25,12 @@
  	};
  };
