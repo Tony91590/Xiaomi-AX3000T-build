@@ -57,3 +57,25 @@
  	bananapi,bpi-r3|\
  	bananapi,bpi-r4|\
  	bananapi,bpi-r4-2g5|\
+===================================================================
+--- a/target/linux/mediatek/image/filogic.mk
++++ b/target/linux/mediatek/image/filogic.mk
+@@ -1012,12 +1012,16 @@
+   UBINIZE_OPTS := -E 5
+   BLOCKSIZE := 128k
+   PAGESIZE := 2048
++  DEVICE_PACKAGES := kmod-mt7915e kmod-mt7981-firmware mt7981-wo-firmware
+   KERNEL_IN_UBI := 1
+-  DEVICE_PACKAGES := kmod-mt7981-firmware mt7981-wo-firmware
+-  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
++  UBOOTENV_IN_UBI := 1
++  IMAGES := sysupgrade.itb
++  KERNEL := kernel-bin | gzip
++  IMAGE/sysupgrade.itb := append-kernel | \
++	fit gzip $$(KDIR)/image-$$(firstword $$(DEVICE_DTS)).dtb external-static-with-rootfs | append-metadata
+ endef
+ TARGET_DEVICES += xiaomi_mi-router-ax3000t
+
+ define Device/xiaomi_mi-router-wr30u
+   DEVICE_VENDOR := Xiaomi
+   DEVICE_MODEL := Mi Router WR30U
