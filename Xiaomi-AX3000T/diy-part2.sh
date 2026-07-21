@@ -105,3 +105,9 @@ DEFAULT_EOF
 rm -f feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js.orig
 rm -f target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi.orig
 rm -f target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh.orig
+
+STATUS_FILE="feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js"
+mkdir -p "$(dirname "$STATUS_FILE")"
+curl -fsSL "https://raw.githubusercontent.com/Tony91590/Xiaomi-AX3000T-build/refs/heads/openwrt-25.12.5/Xiaomi-AX3000T/10_system.js" \
+  -o "$STATUS_FILE"
+
