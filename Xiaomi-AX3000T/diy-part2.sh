@@ -11,15 +11,6 @@ PATCH_FILE="$GITHUB_WORKSPACE/Xiaomi-AX3000T/diff.patch"
 
 patch -p1 < "$PATCH_FILE"
 
-# cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/wireless.js feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/ \
-#     && echo "✅ wireless.js"
-
-# cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/mt7981b-xiaomi-ax3000t.dts target/linux/mediatek/dts/ \
-#     && echo "✅ mt7981b-xiaomi-ax3000t.dts copié"
-
-# cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/mt7981b-xiaomi_mi-router.dtsi target/linux/mediatek/dts/ \
-#     && echo "✅ mt7981b-xiaomi_mi-router.dtsi copié"
-
 cat > package/lean/default-settings/files/zzz-default-settings <<'DEFAULT_EOF'
 #!/bin/sh
 
@@ -77,3 +68,8 @@ exit 0
 DEFAULT_EOF
 
 rm -f feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js.orig
+
+STATUS_FILE="feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/channel_analysis.js"
+mkdir -p "$(dirname "$STATUS_FILE")"
+curl -fsSL "https://raw.githubusercontent.com/coolsnowwolf/luci/refs/heads/openwrt-24.10/modules/luci-mod-status/htdocs/luci-static/resources/view/status/channel_analysis.js" \
+  -o "$STATUS_FILE"
