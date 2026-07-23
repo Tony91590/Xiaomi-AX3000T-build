@@ -111,5 +111,10 @@ mkdir -p "$(dirname "$STATUS_FILE")"
 curl -fsSL "https://raw.githubusercontent.com/coolsnowwolf/luci/refs/heads/openwrt-24.10/modules/luci-mod-status/htdocs/luci-static/resources/view/status/channel_analysis.js" \
   -o "$STATUS_FILE"
 
-feeds/luci/themes/luci-theme-argon
+rm -rf package/luci-theme-argon
+rm -rf package/luci-app-argon-config
+rm -rf feeds/luci/themes/luci-theme-argon
+
+git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
+git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
 
