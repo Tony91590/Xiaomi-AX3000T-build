@@ -18,9 +18,6 @@ set -e
 # Kernel vermagic override
 # ==========================================
 
-echo "[0] Setting kernel vermagic"
-# Modifier la valeur MD5 du firmware
-
 PATCH_MD5="$GITHUB_WORKSPACE/Xiaomi-AX3000T/0002-fix-Kernel-MD5.patch"
 
 echo "[0] Setting kernel vermagic"
