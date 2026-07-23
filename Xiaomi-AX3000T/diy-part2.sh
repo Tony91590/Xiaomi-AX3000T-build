@@ -12,10 +12,11 @@
 # Custom build script - Xiaomi AX3000T
 # Optimized LuCI + ImmortalWrt enhancements
 
+set -e
+
 # ==========================================
 # Kernel vermagic override
 # ==========================================
-set -e
 
 VERMAGIC="5a6c1f71be683ae9980b15d3ce73e24d-r1"
 
