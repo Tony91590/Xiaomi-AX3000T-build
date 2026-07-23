@@ -16,7 +16,7 @@ index 0000000000..d393debe97
 --- /dev/null
 +++ b/.vermagic
 @@ -0,0 +1 @@
-+88bbb0b8c80abf953ee5e7001a2ef514
++5a6c1f71be683ae9980b15d3ce73e24d-r1
 \ No newline at end of file
 diff --git a/include/kernel-defaults.mk b/include/kernel-defaults.mk
 index 2e21392016..38ee60d691 100644
