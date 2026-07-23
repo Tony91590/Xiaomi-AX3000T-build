@@ -22,7 +22,7 @@ VERMAGIC="5a6c1f71be683ae9980b15d3ce73e24d-r1"
 
 echo "[0] Setting kernel vermagic: $VERMAGIC"
 
-sed -i 's|$(MKHASH) md5 > $(LINUX_DIR)/\.vermagic|echo "'"$VERMAGIC"'"\ > $(LINUX_DIR)/.vermagic|' include/kernel-defaults.mk
+sed -i 's|$(MKHASH) md5 > $(LINUX_DIR)/\.vermagic|echo "'"$VERMAGIC"'" > $(LINUX_DIR)/.vermagic|' include/kernel-defaults.mk
 
 
 # ==========================================
