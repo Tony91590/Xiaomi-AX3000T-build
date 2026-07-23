@@ -102,6 +102,7 @@ rm -f /tmp/luci-indexcache
 exit 0
 DEFAULT_EOF
 
+rm -f target/linux/mediatek/image/filogic.mk.orig
 rm -f feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js.orig
 rm -f target/linux/mediatek/dts/mt7981b-xiaomi_mi-router.dtsi.orig
 rm -f target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh.orig
