@@ -18,11 +18,11 @@ set -e
 # Kernel vermagic override
 # ==========================================
 
-PATCH_MD5="$GITHUB_WORKSPACE/Xiaomi-AX3000T/0002-fix-Kernel-MD5.patch"
+PATCH_VER="$GITHUB_WORKSPACE/Xiaomi-AX3000T/vermagic.patch"
 
 echo "[0] Setting kernel vermagic"
 
-patch -p1 < "$PATCH_MD5"
+patch -p1 < "$PATCH_VER"
 
 echo "✓ Setting kernel vermagic applied successfully."
 
