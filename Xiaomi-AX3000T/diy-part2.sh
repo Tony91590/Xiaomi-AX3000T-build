@@ -12,8 +12,6 @@
 # Custom build script - Xiaomi AX3000T
 # Optimized LuCI + ImmortalWrt enhancements
 
-set -e
-
 # ==========================================
 # Kernel vermagic override
 # ==========================================
@@ -22,8 +20,7 @@ VERMAGIC="5a6c1f71be683ae9980b15d3ce73e24d-r1"
 
 echo "[0] Setting kernel vermagic: $VERMAGIC"
 
-
-sed -i "s|grep '=\[ym\]' \$(LINUX_DIR)/\.config\.set | LC_ALL=C sort | \$(MKHASH) md5 > \$(LINUX_DIR)/\.vermagic|echo \"$VERMAGIC\" > \$(LINUX_DIR)/.vermagic|" include/kernel-defaults.mk
+sed -i "/grep '=\[ym\]'.*MKHASH.*vermagic/c\\	echo \"$VERMAGIC\" > \$(LINUX_DIR)/.vermagic" include/kernel-defaults.mk
 
 
 # ==========================================
