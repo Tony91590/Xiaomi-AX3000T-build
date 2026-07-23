@@ -21,47 +21,13 @@ set -e
 echo "[0] Setting kernel vermagic"
 # Modifier la valeur MD5 du firmware
 
-# Générer le fichier VerMagic
-echo "5a6c1f71be683ae9980b15d3ce73e24d-r1" > vermagic
+PATCH_MD5="$GITHUB_WORKSPACE/Xiaomi-AX3000T/0002-fix-Kernel-MD5.patch"
 
-# Vérifier que le fichier VerMagic a bien été créé
-if [ ! -f "vermagic" ]; then
-    echo "Échec de la création du fichier VerMagic !"
-    exit 1
-fi
+echo "[0] Setting kernel vermagic"
 
+patch -p1 < "$PATCH_MD5"
 
-# Modifier include/kernel-defaults.mk
-
-# Définir les variables
-pattern="grep '=[ym]' \$(LINUX_DIR)/.config.set | LC_ALL=C sort | \$(MKHASH) md5 > \$(LINUX_DIR)/.vermagic"
-
-replacement="cp \$(TOPDIR)/vermagic \$(LINUX_DIR)/.vermagic"
-
-# Échapper les caractères spéciaux du motif
-escaped_pattern=$(printf '%s\n' "$pattern" | sed -e 's/[][\/$*.^|[]/\\&/g')
-
-# Utiliser sed pour remplacer toute la ligne
-sed -i "s|$escaped_pattern|$replacement|g" include/kernel-defaults.mk
-
-# Vérifier que le remplacement a réussi
-if [ $? -ne 0 ]; then
-    echo "Échec du remplacement dans include/kernel-defaults.mk !"
-    exit 1
-fi
-
-
-# Modifier package/kernel/linux/Makefile
-
-sed -i 's/STAMP_BUILT:=$(STAMP_BUILT)_$(shell $(SCRIPT_DIR)\/kconfig.pl $(LINUX_DIR)\/.config | $(MKHASH) md5)/STAMP_BUILT:=$(STAMP_BUILT)_$(shell cat $(LINUX_DIR)\/.vermagic)/g' package/kernel/linux/Makefile
-
-# Vérifier que le remplacement a réussi
-if [ $? -ne 0 ]; then
-    echo "Échec du remplacement dans package/kernel/linux/Makefile !"
-    exit 1
-fi
-
-echo "[0] Current vermagic rule:"
+echo "✓ Setting kernel vermagic applied successfully."
 
 # ==========================================
 # LuCI system status patch
