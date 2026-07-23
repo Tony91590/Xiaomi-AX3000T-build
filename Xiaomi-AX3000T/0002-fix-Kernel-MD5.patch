@@ -1,7 +1,7 @@
 --- /dev/null
 +++ b/.vermagic
 @@ -0,0 +1 @@
-+5a6c1f71be683ae9980b15d3ce73e24d-r1
++5a6c1f71be683ae9980b15d3ce73e24d
 ===================================================================
 --- a/include/kernel-defaults.mk
 +++ b/include/kernel-defaults.mk
