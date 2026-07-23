@@ -15,15 +15,34 @@
 set -e
 
 # ==========================================
-# Vermagic override
-# Modifier uniquement cette ligne si besoin
+# Kernel vermagic override
 # ==========================================
+
 VERMAGIC="5a6c1f71be683ae9980b15d3ce73e24d-r1"
 
 echo "[0] Setting kernel vermagic: $VERMAGIC"
 
-sed -i '/$(LINUX_DIR)\/\.vermagic/c\	echo "'"$VERMAGIC"'" > $(LINUX_DIR)/.vermagic' include/kernel-defaults.mk
 
+sed -i "s|grep '=\[ym\]' \$(LINUX_DIR)/\.config\.set | LC_ALL=C sort | \$(MKHASH) md5 > \$(LINUX_DIR)/\.vermagic|echo \"$VERMAGIC\" > \$(LINUX_DIR)/.vermagic|" include/kernel-defaults.mk
+
+
+# ==========================================
+# Verification
+# ==========================================
+
+echo "[0] Checking vermagic patch..."
+
+if grep -q "echo \"$VERMAGIC\" > \$(LINUX_DIR)/.vermagic" include/kernel-defaults.mk; then
+    echo "✓ Vermagic override OK"
+else
+    echo "✗ Vermagic override FAILED"
+    grep -n "vermagic" include/kernel-defaults.mk || true
+    exit 1
+fi
+
+
+echo "[0] Current vermagic rule:"
+grep -n "vermagic" include/kernel-defaults.mk
 
 # ==========================================
 # LuCI system status patch
