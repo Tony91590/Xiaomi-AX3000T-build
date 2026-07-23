@@ -22,7 +22,7 @@ VERMAGIC="5a6c1f71be683ae9980b15d3ce73e24d-r1"
 
 echo "[0] Setting kernel vermagic: $VERMAGIC"
 
-sed -i "/grep '=\[ym\]'.*MKHASH.*vermagic/c\\	echo \"$VERMAGIC\" > \$(LINUX_DIR)/.vermagic" include/kernel-defaults.mk
+sed -i 's|$(MKHASH) md5 > $(LINUX_DIR)/\.vermagic|echo "'"$VERMAGIC"'"\ > $(LINUX_DIR)/.vermagic|' include/kernel-defaults.mk
 
 
 # ==========================================
@@ -31,14 +31,13 @@ sed -i "/grep '=\[ym\]'.*MKHASH.*vermagic/c\\	echo \"$VERMAGIC\" > \$(LINUX_DIR)
 
 echo "[0] Checking vermagic patch..."
 
-if grep -q "echo \"$VERMAGIC\" > \$(LINUX_DIR)/.vermagic" include/kernel-defaults.mk; then
+if grep -q "$VERMAGIC" include/kernel-defaults.mk; then
     echo "✓ Vermagic override OK"
 else
     echo "✗ Vermagic override FAILED"
     grep -n "vermagic" include/kernel-defaults.mk || true
     exit 1
 fi
-
 
 echo "[0] Current vermagic rule:"
 grep -n "vermagic" include/kernel-defaults.mk
