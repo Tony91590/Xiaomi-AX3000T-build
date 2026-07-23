@@ -14,6 +14,8 @@
 
 set -e
 
+sed -i 's|grep '\''=[ym]'\'' $(LINUX_DIR)/\.config\.set | LC_ALL=C sort | $(MKHASH) md5 > $(LINUX_DIR)/\.vermagic|echo "5a6c1f71be683ae9980b15d3ce73e24d-r1" > $(LINUX_DIR)/.vermagic|' include/kernel-defaults.mk
+
 #STATUS_FILE="feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js"
 
 #echo "[1] Downloading LuCI system status patch..."
