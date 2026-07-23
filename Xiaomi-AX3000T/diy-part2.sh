@@ -14,16 +14,20 @@
 
 set -e
 
-sed -i 's|grep '\''=[ym]'\'' $(LINUX_DIR)/\.config\.set | LC_ALL=C sort | $(MKHASH) md5 > $(LINUX_DIR)/\.vermagic|echo "5a6c1f71be683ae9980b15d3ce73e24d-r1" > $(LINUX_DIR)/.vermagic|' include/kernel-defaults.mk
+# ==========================================
+# Vermagic override
+# Modifier uniquement cette ligne si besoin
+# ==========================================
+VERMAGIC="5a6c1f71be683ae9980b15d3ce73e24d-r1"
 
-#STATUS_FILE="feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js"
+echo "[0] Setting kernel vermagic: $VERMAGIC"
 
-#echo "[1] Downloading LuCI system status patch..."
+sed -i '/$(LINUX_DIR)\/\.vermagic/c\	echo "'"$VERMAGIC"'" > $(LINUX_DIR)/.vermagic' include/kernel-defaults.mk
 
-#mkdir -p "$(dirname "$STATUS_FILE")"
 
-#curl -fsSL "https://raw.githubusercontent.com/Tony91590/Xiaomi-AX3000T-build/refs/heads/openwrt-25.12.5/Xiaomi-AX3000T/10_system.js" \
-#  -o "$STATUS_FILE"
+# ==========================================
+# LuCI system status patch
+# ==========================================
 
 PATCH_FILE="$GITHUB_WORKSPACE/Xiaomi-AX3000T/10_system.patch"
 
@@ -46,7 +50,6 @@ if not file.exists():
 
 s = file.read_text()
 
-# protection anti double patch
 if "getTempInfo:" in s:
     print("Patch already applied, skipping.")
     exit(0)
@@ -105,6 +108,7 @@ EOF
 
 chmod +x files/sbin/tempinfo
 
+
 mkdir -p files/usr/share/rpcd/acl.d
 
 cat > files/usr/share/rpcd/acl.d/luci-mod-status-autocore.json <<'EOF'
@@ -141,7 +145,6 @@ mkdir -p files/etc/uci-defaults
 cat > files/etc/uci-defaults/99-default-settings << 'EOF'
 #!/bin/sh
 
-# Enable wireless interfaces
 uci set wireless.@wifi-device[0].disabled='0'
 uci set wireless.@wifi-iface[0].disabled='0'
 uci set wireless.@wifi-iface[0].encryption='none'
@@ -154,7 +157,6 @@ uci set wireless.@wifi-iface[1].ssid="OpenWrt_5G"
 
 uci commit wireless
 
-# Enable default flow offloading
 uci set firewall.@defaults[0].flow_offloading='1'
 uci set firewall.@defaults[0].flow_offloading_hw='1'
 
