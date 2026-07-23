@@ -24,7 +24,6 @@ echo "[0] Setting kernel vermagic: $VERMAGIC"
 
 sed -i "/grep '=\[ym\]'.*MKHASH.*vermagic/c\	echo \"$VERMAGIC\" > \$(LINUX_DIR)/.vermagic" include/kernel-defaults.mk
 
-
 # ==========================================
 # Verification
 # ==========================================
@@ -125,7 +124,6 @@ EOF
 
 chmod +x files/sbin/tempinfo
 
-
 mkdir -p files/usr/share/rpcd/acl.d
 
 cat > files/usr/share/rpcd/acl.d/luci-mod-status-autocore.json <<'EOF'
@@ -145,7 +143,6 @@ EOF
 echo "[4] Kernel tweak (mt76 / AX3000T)..."
 
 sed -i '/AUTOLOAD:=$(call AutoProbe,mt7915e)/a \  MODPARAMS.mt7915e:=wed_enable=Y' package/kernel/mt76/Makefile
-
 
 echo "[5] LuCI theme Argon..."
 
