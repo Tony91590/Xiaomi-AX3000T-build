@@ -119,3 +119,17 @@ rm -rf feeds/luci/themes/luci-theme-argon
 git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
 
+mkdir -p target/linux/mediatek/filogic/base-files/etc/hotplug.d/iface
+
+cat > target/linux/mediatek/filogic/base-files/etc/hotplug.d/iface/99-odhcpd-reload <<'ODHCPD_EOF'
+#!/bin/sh
+
+[ "$ACTION" = "ifup" ] || exit 0
+
+if [ "$INTERFACE" = "wan6" ]; then
+        sleep 10
+        /etc/init.d/odhcpd reload
+fi
+ODHCPD_EOF
+
+chmod 0755 target/linux/mediatek/filogic/base-files/etc/hotplug.d/iface/99-odhcpd-reload
