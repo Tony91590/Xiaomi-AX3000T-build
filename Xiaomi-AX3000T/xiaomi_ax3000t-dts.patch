@@ -77,8 +77,8 @@
  define Device/xiaomi_mi-router-wr30u-stock
    DEVICE_VENDOR := Xiaomi
    DEVICE_MODEL := Mi Router WR30U (stock layout)
---- a/package/boot/uboot-envtools/files/mediatek_filogic
-+++ b/package/boot/uboot-envtools/files/mediatek_filogic
+--- a/package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic
++++ b/package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic
 @@ -107,6 +107,7 @@
  	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x80000" "0x10000"
  	;;
