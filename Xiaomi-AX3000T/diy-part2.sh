@@ -161,6 +161,16 @@ EOF
 
 chmod +x files/etc/uci-defaults/99-default-settings
 
+chmod 0644 target/linux/mediatek/dts/mt7981b-xiaomi-mi-router-ax3000t-mtkuboot.dts
+
+PATCH_DTS="$GITHUB_WORKSPACE/Xiaomi-AX3000T/xiaomi_ax3000t-112m-nmbm-dts.patch"
+
+echo "[7] Applying DTS patch..."
+
+patch -p1 < "$PATCH_DTS"
+
+chmod 0644 target/linux/mediatek/dts/mt7981b-xiaomi-mi-router-ax3000t-mtkuboot.dts 
+
 rm -f feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js.orig
 
 echo "Done ✔"
