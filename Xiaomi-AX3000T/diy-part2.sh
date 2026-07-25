@@ -170,5 +170,9 @@ patch -p1 < "$PATCH_DTS"
 chmod 0644 target/linux/mediatek/dts/mt7981b-xiaomi-mi-router-ax3000t-112m-nmbm.dts 
 
 rm -f feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js.orig
+rm -f target/linux/mediatek/base-files/lib/preinit/05_set_preinit_iface.orig
+rm -f target/linux/mediatek/filogic/base-files/etc/board.d/02_network.orig
+rm -f target/linux/mediatek/image/filogic.mk.orig
+rm -f package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic.orig
 
 echo "Done ✔"
