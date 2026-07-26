@@ -9,15 +9,15 @@ diff --git a/feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/vie
 -	object: 'system',
 -	method: 'info'
 -});
-+ var callSystemInfo = rpc.declare({
-+ 	object: 'system',
-+ 	method: 'info'
-+ });
++var callSystemInfo = rpc.declare({
++	object: 'system',
++	method: 'info'
++});
 +
-+ var callTempInfo = rpc.declare({
-+ 	object: 'luci',
-+ 	method: 'getTempInfo'
-+ });
++var callTempInfo = rpc.declare({
++	object: 'luci',
++	method: 'getTempInfo'
++});
 
  return baseclass.extend({
  	title: _('System'),
