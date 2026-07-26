@@ -46,7 +46,7 @@ diff --git a/feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/vie
  				systeminfo.load[2] / 65535.0
  			) : null
 -		];
-+ 		];
++		];
 +
 +		if (tempinfo.tempinfo) {
 +			fields.splice(6, 0, _('Temperature'));
@@ -54,7 +54,7 @@ diff --git a/feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/vie
 +		}
 
 -		var table = E('table', { 'class': 'table' });
-+ 		var table = E('table', { 'class': 'table' });
++		var table = E('table', { 'class': 'table' });
 
  		for (var i = 0; i < fields.length; i += 2) {
  			table.appendChild(E('tr', { 'class': 'tr' }, [
