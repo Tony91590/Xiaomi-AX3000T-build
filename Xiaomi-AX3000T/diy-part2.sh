@@ -10,7 +10,7 @@
 # Description: OpenWrt DIY script part 2 (After Update feeds)
 #
 # Custom build script - Xiaomi AX3000T
-# Optimized LuCI + ImmortalWrt enhancements
+# Optimized LuCI + ImmortalWrt enhancements fw_setenv glbtn_key mesh
 
 set -e
 
