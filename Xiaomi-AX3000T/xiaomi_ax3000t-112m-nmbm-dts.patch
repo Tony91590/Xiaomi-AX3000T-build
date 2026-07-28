@@ -1,6 +1,6 @@
 --- /dev/null
 +++ b/target/linux/mediatek/dts/mt7981b-xiaomi-mi-router-ax3000t-112m-nmbm.dts
-@@ -0,0 +1,22 @@
+@@ -0,0 +1,23 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
 +
 +/dts-v1/;
@@ -15,6 +15,7 @@
 +	mediatek,nmbm;
 +	mediatek,bmt-max-ratio = <1>;
 +	mediatek,bmt-max-reserved-blocks = <64>;
++	mediatek,bmt-mtd-overridden-oobsize = <64>;
 +};
 +
 +&partitions {
@@ -65,7 +66,7 @@
 +  UBINIZE_OPTS := -E 5
 +  BLOCKSIZE := 128k
 +  PAGESIZE := 2048
-+  DEVICE_PACKAGES := kmod-mt7981-firmware mt7981-wo-firmware
++  DEVICE_PACKAGES := kmod-mt7915e kmod-mt7981-firmware mt7981-wo-firmware
 +ifneq ($(CONFIG_TARGET_ROOTFS_INITRAMFS),)
 +  ARTIFACTS := initramfs-factory.ubi
 +  ARTIFACT/initramfs-factory.ubi := append-image-stage initramfs-kernel.bin | ubinize-kernel
