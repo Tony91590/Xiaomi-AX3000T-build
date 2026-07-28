@@ -26,7 +26,7 @@
 +};
 --- a/target/linux/mediatek/base-files/lib/preinit/05_set_preinit_iface
 +++ b/target/linux/mediatek/base-files/lib/preinit/05_set_preinit_iface
-@@ -19,6 +19,7 @@
+@@ -31,6 +31,7 @@
  		;;
  	xiaomi,mi-router-ax3000t|\
  	xiaomi,mi-router-ax3000t-ubootmod|\
@@ -36,7 +36,7 @@
  	xiaomi,redmi-router-ax6000-stock|\
 --- a/target/linux/mediatek/filogic/base-files/etc/board.d/02_network
 +++ b/target/linux/mediatek/filogic/base-files/etc/board.d/02_network
-@@ -86,6 +86,7 @@
+@@ -212,6 +212,7 @@
  		;;
  	xiaomi,mi-router-ax3000t|\
  	xiaomi,mi-router-ax3000t-ubootmod|\
@@ -44,7 +44,7 @@
  	xiaomi,mi-router-wr30u-stock|\
  	xiaomi,mi-router-wr30u-ubootmod|\
  	xiaomi,redmi-router-ax6000-stock|\
-@@ -173,6 +174,7 @@
+@@ -313,6 +313,7 @@
  		;;
  	xiaomi,mi-router-ax3000t|\
  	xiaomi,mi-router-ax3000t-ubootmod|\
@@ -54,7 +54,7 @@
  	xiaomi,redmi-router-ax6000-stock|\
 --- a/target/linux/mediatek/image/filogic.mk
 +++ b/target/linux/mediatek/image/filogic.mk
-@@ -927,6 +927,23 @@
+@@ -3317,6 +3317,23 @@
  endef
  TARGET_DEVICES += xiaomi_mi-router-ax3000t-ubootmod
  
@@ -80,7 +80,7 @@
    DEVICE_MODEL := Mi Router WR30U (stock layout)
 --- a/package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic
 +++ b/package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic
-@@ -107,6 +107,7 @@
+@@ -162,6 +162,7 @@
  	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x80000" "0x10000"
  	;;
  xiaomi,mi-router-ax3000t|\
