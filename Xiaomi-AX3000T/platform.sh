@@ -77,7 +77,11 @@ platform_check_image() {
 	[ "$#" -gt 1 ] && return 1
 
 	case "$board" in
-	bananapi,bpi-r3|\
+    xiaomi,mi-router-ax3000t)
+        fit_check_image "$1"
+        return $?
+		;;
+    bananapi,bpi-r3|\
 	bananapi,bpi-r4|\
 	bananapi,bpi-r4-2g5|\
 	bananapi,bpi-r4-poe|\
