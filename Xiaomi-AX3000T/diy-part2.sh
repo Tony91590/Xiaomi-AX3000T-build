@@ -166,6 +166,9 @@ EOF
 
 chmod +x files/etc/uci-defaults/99-default-settings
 
+cp $GITHUB_WORKSPACE/Xiaomi-AX3000T/0999-mt7981-oc-1.6G.patch package/boot/arm-trusted-firmware-mediatek/patches/ \
+    && echo "✅ 0999-mt7981-oc-1.6G.patch copié"
+
 rm -f feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js.orig
 
 echo "Done ✔"
