@@ -180,4 +180,19 @@ rm -f target/linux/mediatek/filogic/base-files/etc/board.d/02_network.orig
 rm -f target/linux/mediatek/image/filogic.mk.orig
 rm -f package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic.orig
 
+mkdir -p target/linux/mediatek/filogic/base-files/etc/hotplug.d/iface
+
+cat > target/linux/mediatek/filogic/base-files/etc/hotplug.d/iface/99-odhcpd-reload <<'ODHCPD_EOF'
+#!/bin/sh
+
+[ "$ACTION" = "ifup" ] || exit 0
+
+if [ "$INTERFACE" = "wan6" ]; then
+        sleep 10
+        /etc/init.d/odhcpd reload
+fi
+ODHCPD_EOF
+
+chmod 0755 target/linux/mediatek/filogic/base-files/etc/hotplug.d/iface/99-odhcpd-reload
+
 echo "Done ✔"
