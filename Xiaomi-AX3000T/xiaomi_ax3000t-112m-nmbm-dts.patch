@@ -30,9 +30,9 @@
  		;;
  	xiaomi,mi-router-ax3000t|\
  	xiaomi,mi-router-ax3000t-ubootmod|\
-+	xiaomi,mi-router-ax3000t-112m-nmbm|\
  	xiaomi,mi-router-wr30u-stock|\
  	xiaomi,mi-router-wr30u-ubootmod|\
++ xiaomi,redmi-router-ax6000-110m-nmbm|\
  	xiaomi,redmi-router-ax6000-stock|\
 --- a/target/linux/mediatek/filogic/base-files/etc/board.d/02_network
 +++ b/target/linux/mediatek/filogic/base-files/etc/board.d/02_network
@@ -40,17 +40,17 @@
  		;;
  	xiaomi,mi-router-ax3000t|\
  	xiaomi,mi-router-ax3000t-ubootmod|\
-+	xiaomi,mi-router-ax3000t-112m-nmbm|\
  	xiaomi,mi-router-wr30u-stock|\
  	xiaomi,mi-router-wr30u-ubootmod|\
++ xiaomi,redmi-router-ax6000-110m-nmbm|\
  	xiaomi,redmi-router-ax6000-stock|\
 @@ -312,6 +312,7 @@
  		;;
  	xiaomi,mi-router-ax3000t|\
  	xiaomi,mi-router-ax3000t-ubootmod|\
-+	xiaomi,mi-router-ax3000t-112m-nmbm|\
  	xiaomi,mi-router-wr30u-stock|\
  	xiaomi,mi-router-wr30u-ubootmod|\
++ xiaomi,redmi-router-ax6000-110m-nmbm|\
  	xiaomi,redmi-router-ax6000-stock|\
 --- a/target/linux/mediatek/image/filogic.mk
 +++ b/target/linux/mediatek/image/filogic.mk
@@ -84,7 +84,7 @@
  	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x80000" "0x10000"
  	;;
  xiaomi,mi-router-ax3000t|\
-+xiaomi,mi-router-ax3000t-112m-nmbm|\
  xiaomi,mi-router-wr30u-stock|\
++xiaomi,redmi-router-ax6000-110m-nmbm|\
  xiaomi,redmi-router-ax6000-stock)
  	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x10000" "0x20000"
