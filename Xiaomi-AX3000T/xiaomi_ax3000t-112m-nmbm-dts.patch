@@ -55,7 +55,7 @@
  		ip link set eth0 up
 --- a/target/linux/mediatek/filogic/base-files/etc/board.d/02_network
 +++ b/target/linux/mediatek/filogic/base-files/etc/board.d/02_network
-@@ -218,6 +218,7 @@ mediatek_setup_interfaces()
+@@ -214,6 +214,7 @@ mediatek_setup_interfaces()
  	xiaomi,mi-router-ax3000t-ubootmod|\
  	xiaomi,mi-router-wr30u-stock|\
  	xiaomi,mi-router-wr30u-ubootmod|\
@@ -63,7 +63,7 @@
  	xiaomi,redmi-router-ax6000-stock|\
  	xiaomi,redmi-router-ax6000-ubootmod)
  		ucidef_set_interfaces_lan_wan "lan2 lan3 lan4" wan
-@@ -323,6 +324,7 @@ mediatek_setup_macs()
+@@ -315,6 +315,7 @@ mediatek_setup_macs()
  	xiaomi,mi-router-ax3000t-ubootmod|\
  	xiaomi,mi-router-wr30u-stock|\
  	xiaomi,mi-router-wr30u-ubootmod|\
