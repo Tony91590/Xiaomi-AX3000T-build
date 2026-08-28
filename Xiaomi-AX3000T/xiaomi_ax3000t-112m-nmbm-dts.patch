@@ -99,7 +99,7 @@
    DEVICE_MODEL := Mi Router WR30U (stock layout)
 --- a/package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic
 +++ b/package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic
-@@ -165,6 +165,7 @@ ubnt,unifi-6-plus)
+@@ -163,6 +163,7 @@ ubnt,unifi-6-plus)
  	;;
  xiaomi,mi-router-ax3000t|\
  xiaomi,mi-router-wr30u-stock|\
