@@ -49,9 +49,9 @@
  		;;
  	xiaomi,mi-router-ax3000t|\
  	xiaomi,mi-router-ax3000t-ubootmod|\
++	xiaomi,redmi-router-ax6000-110m-nmbm|\
  	xiaomi,mi-router-wr30u-stock|\
  	xiaomi,mi-router-wr30u-ubootmod|\
-+	xiaomi,redmi-router-ax6000-110m-nmbm|\
  	xiaomi,redmi-router-ax6000-stock|\
 --- a/target/linux/mediatek/filogic/base-files/etc/board.d/02_network
 +++ b/target/linux/mediatek/filogic/base-files/etc/board.d/02_network
@@ -59,17 +59,17 @@
  		;;
  	xiaomi,mi-router-ax3000t|\
  	xiaomi,mi-router-ax3000t-ubootmod|\
++	xiaomi,redmi-router-ax6000-110m-nmbm|\
  	xiaomi,mi-router-wr30u-stock|\
  	xiaomi,mi-router-wr30u-ubootmod|\
-+	xiaomi,redmi-router-ax6000-110m-nmbm|\
  	xiaomi,redmi-router-ax6000-stock|\
 @@ -312,6 +312,7 @@
  		;;
  	xiaomi,mi-router-ax3000t|\
  	xiaomi,mi-router-ax3000t-ubootmod|\
++	xiaomi,redmi-router-ax6000-110m-nmbm|\
  	xiaomi,mi-router-wr30u-stock|\
  	xiaomi,mi-router-wr30u-ubootmod|\
-+	xiaomi,redmi-router-ax6000-110m-nmbm|\
  	xiaomi,redmi-router-ax6000-stock|\
 --- a/target/linux/mediatek/image/filogic.mk
 +++ b/target/linux/mediatek/image/filogic.mk
