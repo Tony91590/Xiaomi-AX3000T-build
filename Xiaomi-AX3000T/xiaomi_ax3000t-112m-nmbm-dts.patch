@@ -7,7 +7,7 @@
 +#include "mt7986a-xiaomi-redmi-router-ax6000.dtsi"
 +
 +/ {
-+	model = "Xiaomi Redmi Router AX6000";
++	model = "Xiaomi Redmi Router AX6000 (110M UBI with NMBM-Enabled layout)";
 +	compatible = "xiaomi,redmi-router-ax6000-110m-nmbm", "mediatek,mt7986a";
 +};
 +
