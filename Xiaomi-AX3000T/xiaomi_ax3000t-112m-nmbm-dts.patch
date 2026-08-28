@@ -99,11 +99,11 @@
    DEVICE_MODEL := Mi Router WR30U (stock layout)
 --- a/package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic
 +++ b/package/boot/uboot-tools/uboot-envtools/files/mediatek_filogic
-@@ -162,6 +162,7 @@
- 	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x80000" "0x10000"
+@@ -165,6 +165,7 @@ ubnt,unifi-6-plus)
  	;;
  xiaomi,mi-router-ax3000t|\
-+xiaomi,redmi-router-ax6000-110m-nmbm|\
  xiaomi,mi-router-wr30u-stock|\
++xiaomi,redmi-router-ax6000-110m-nmbm|\
  xiaomi,redmi-router-ax6000-stock)
  	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x10000" "0x20000"
+ 	ubootenv_add_uci_sys_config "/dev/mtd2" "0x0" "0x10000" "0x20000"
