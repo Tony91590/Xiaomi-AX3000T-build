@@ -77,9 +77,9 @@
  endef
  TARGET_DEVICES += xiaomi_mi-router-ax3000t-ubootmod
  
-+define Device/xiaomi_mi-router-ax3000t-112m-nmbm
++define Device/xiaomi_redmi-router-ax6000-110m-nmbm
 +  DEVICE_VENDOR := Xiaomi
-+  DEVICE_MODEL := Mi Router AX3000T (110M UBI with NMBM-Enabled layout)
++  DEVICE_MODEL := Redmi Router AX6000 (110M UBI with NMBM-Enabled layout)
 +  DEVICE_DTS := mt7986a-xiaomi-redmi-router-ax6000-110m-nmbm
 +  DEVICE_DTS_DIR := ../dts
 +  UBINIZE_OPTS := -E 5
@@ -92,7 +92,7 @@
 +endif
 +  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
 +endef
-+TARGET_DEVICES += xiaomi_mi-router-ax3000t-112m-nmbm
++TARGET_DEVICES += xiaomi_redmi-router-ax6000-110m-nmbm
 +
  define Device/xiaomi_mi-router-wr30u-stock
    DEVICE_VENDOR := Xiaomi
