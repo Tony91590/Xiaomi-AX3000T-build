@@ -63,7 +63,7 @@
  	xiaomi,redmi-router-ax6000-stock|\
  	xiaomi,redmi-router-ax6000-ubootmod)
  		ucidef_set_interfaces_lan_wan "lan2 lan3 lan4" wan
-@@ -315,6 +315,7 @@ mediatek_setup_macs()
+@@ -314,6 +314,7 @@ mediatek_setup_macs()
  	xiaomi,mi-router-ax3000t-ubootmod|\
  	xiaomi,mi-router-wr30u-stock|\
  	xiaomi,mi-router-wr30u-ubootmod|\
@@ -109,7 +109,7 @@
  	ubootenv_add_uci_sys_config "/dev/mtd2" "0x0" "0x10000" "0x20000"
 --- a/target/linux/mediatek/filogic/base-files/etc/board.d/01_leds
 +++ b/target/linux/mediatek/filogic/base-files/etc/board.d/01_leds
-@@ -325,6 +325,7 @@ xiaomi,mi-router-wr30u-stock|\
+@@ -324,6 +324,7 @@ xiaomi,mi-router-wr30u-stock|\
  xiaomi,mi-router-wr30u-ubootmod)
  	ucidef_set_led_netdev "wan" "wan" "blue:wan" "wan" "link tx rx"
  	;;
