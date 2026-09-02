@@ -166,7 +166,7 @@ EOF
 
 chmod +x files/etc/uci-defaults/99-default-settings
 
-PATCH_DTS="$GITHUB_WORKSPACE/Xiaomi-AX3000T/xiaomi_ax3000t-112m-nmbm-dts.patch"
+PATCH_DTS="$GITHUB_WORKSPACE/Xiaomi-AX3000T/xiaomi_ax3000t-110m-nmbm-dts.patch"
 
 echo "[7] Applying DTS patch..."
 
