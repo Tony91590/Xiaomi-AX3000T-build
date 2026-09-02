@@ -1,5 +1,5 @@
 --- /dev/null
-+++ b/target/linux/mediatek/dts/mt7981b-xiaomi-mi-router-ax3000t-112m-nmbm.dts
++++ b/target/linux/mediatek/dts/mt7981b-xiaomi-mi-router-ax3000t-110m-nmbm.dts
 @@ -0,0 +1,23 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
 +
@@ -7,8 +7,8 @@
 +#include "mt7981b-xiaomi-mi-router-ax3000t.dtsi"
 +
 +/ {
-+	model = "Xiaomi Mi Router AX3000T (112M UBI with NMBM-Enabled layout)";
-+	compatible = "xiaomi,mi-router-ax3000t-112m-nmbm", "mediatek,mt7981";
++	model = "Xiaomi Mi Router AX3000T (110M UBI with NMBM-Enabled layout)";
++	compatible = "xiaomi,mi-router-ax3000t-110m-nmbm", "mediatek,mt7981";
 +};
 +
 +&spi_nand {
@@ -21,7 +21,13 @@
 +&partitions {
 +	partition@600000 {
 +		label = "ubi";
-+		reg = <0x600000 0x7000000>;
++		reg = <0x0600000 0x6400000>;
++	};
++
++	partition@6a00000 {
++		label = "data";
++		reg = <0x6a00000 0x0c00000>;
++		read-only;
 +	};
 +};
 --- a/target/linux/mediatek/base-files/lib/preinit/05_set_preinit_iface
@@ -30,7 +36,7 @@
  		;;
  	xiaomi,mi-router-ax3000t|\
  	xiaomi,mi-router-ax3000t-ubootmod|\
-+	xiaomi,mi-router-ax3000t-112m-nmbm|\
++	xiaomi,mi-router-ax3000t-110m-nmbm|\
  	xiaomi,mi-router-wr30u-stock|\
  	xiaomi,mi-router-wr30u-ubootmod|\
  	xiaomi,redmi-router-ax6000-stock|\
@@ -40,7 +46,7 @@
  		;;
  	xiaomi,mi-router-ax3000t|\
  	xiaomi,mi-router-ax3000t-ubootmod|\
-+	xiaomi,mi-router-ax3000t-112m-nmbm|\
++	xiaomi,mi-router-ax3000t-110m-nmbm|\
  	xiaomi,mi-router-wr30u-stock|\
  	xiaomi,mi-router-wr30u-ubootmod|\
  	xiaomi,redmi-router-ax6000-stock|\
@@ -48,7 +54,7 @@
  		;;
  	xiaomi,mi-router-ax3000t|\
  	xiaomi,mi-router-ax3000t-ubootmod|\
-+	xiaomi,mi-router-ax3000t-112m-nmbm|\
++	xiaomi,mi-router-ax3000t-110m-nmbm|\
  	xiaomi,mi-router-wr30u-stock|\
  	xiaomi,mi-router-wr30u-ubootmod|\
  	xiaomi,redmi-router-ax6000-stock|\
@@ -58,10 +64,10 @@
  endef
  TARGET_DEVICES += xiaomi_mi-router-ax3000t-ubootmod
  
-+define Device/xiaomi_mi-router-ax3000t-112m-nmbm
++define Device/xiaomi_mi-router-ax3000t-110m-nmbm
 +  DEVICE_VENDOR := Xiaomi
-+  DEVICE_MODEL := Mi Router AX3000T (112M UBI with NMBM-Enabled layout)
-+  DEVICE_DTS := mt7981b-xiaomi-mi-router-ax3000t-112m-nmbm
++  DEVICE_MODEL := Mi Router AX3000T (110M UBI with NMBM-Enabled layout)
++  DEVICE_DTS := mt7981b-xiaomi-mi-router-ax3000t-110m-nmbm
 +  DEVICE_DTS_DIR := ../dts
 +  UBINIZE_OPTS := -E 5
 +  BLOCKSIZE := 128k
@@ -73,7 +79,7 @@
 +endif
 +  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
 +endef
-+TARGET_DEVICES += xiaomi_mi-router-ax3000t-112m-nmbm
++TARGET_DEVICES += xiaomi_mi-router-ax3000t-110m-nmbm
 +
  define Device/xiaomi_mi-router-wr30u-stock
    DEVICE_VENDOR := Xiaomi
@@ -84,7 +90,7 @@
  	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x80000" "0x10000"
  	;;
  xiaomi,mi-router-ax3000t|\
-+xiaomi,mi-router-ax3000t-112m-nmbm|\
++xiaomi,mi-router-ax3000t-110m-nmbm|\
  xiaomi,mi-router-wr30u-stock|\
  xiaomi,redmi-router-ax6000-stock)
  	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x10000" "0x20000"
